@@ -1,11 +1,18 @@
 #functional_tests
 
-#from os import chdir, getcwd
+from os import chdir
+
+#, getcwd
 
 
 #chdir(r'C:\Users\Noe\Documents\Visual Studio 2015\Projects\stakenannyb\stakenannyb')
 #cwd = getcwd()
 #print ('this is current working directory: ' + str(cwd))
+
+#chdir('..\stakenannyb')
+
+from sys import path as spath
+spath.append('..\stakenannyb')
 
 
 import stakenannyb
@@ -13,7 +20,7 @@ import stakenannyb
 
 
 # Jody set the stakenani.conf to the appropriate path and kept the wallets he did not want to run at None
-assert 'turbostake' in stakenannyb.envars['coinlist']
+assert ('turbostake') in stakenannyb.envars['coinlist']
 
 # prompt user for input on an infinite loop
 
@@ -23,7 +30,9 @@ assert 'help' in str(stakenannyb.commandhelp)
 
 # provide bad command type help for options message.
 
+
 # provide option to quit
+
 # PID 1 is there a datafolder, if not make one
 # PID 2 is there a sessions.dat file, if not make one
 # PID 3 if there is a sessions.dat make sure it has the proper contents format place current PID into file
