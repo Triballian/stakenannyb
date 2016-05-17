@@ -25,7 +25,7 @@ Created on Apr 16, 2016
 
 
 '''
-#testing revisioning
+#testing again
 from sys import exit, argv
 
 from candiapps.utils import getconf
