@@ -20,7 +20,8 @@ class NewUserTest(unittest.TestCase):
 
     def test_can_grab_conf_and_check_it_later(self):
 
-        #self.assertEqual(str(stakenannyb.commandcoinssupported), ('turbostake',))
+        
+        self.assertEqual(str(stakenannyb.commandcoinssupported()), ('turbostake',))
         self.assertEqual(stakenannyb.envars['coinlist'], 'turbostake')
         
 
