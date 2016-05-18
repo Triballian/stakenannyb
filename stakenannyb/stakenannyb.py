@@ -30,7 +30,8 @@ from sys import exit, argv
 
 from candiapps.utils import getconf
 
-from os import path, getenv, mkdir, getpid, system
+from os import path, getenv, mkdir, getpid, system, getcwd
+from subprocess import check_output
 
 from re import sub, search
 from ast import literal_eval
@@ -46,6 +47,9 @@ appdatadirpath = appdirpath + '/data'
 appdatfile = appdatadirpath + '/session.dat'
 apppidstr = {}
 
+startmenu = appdata + r'/Microsoft/Windows/Start Menu/Programs/Startup'
+sncmd = startmenu + '/stakenammy.cmd'
+snpy = r'\stakenannyb.py'
 
 
 def printoutput(list):
@@ -60,6 +64,12 @@ def readdatfile():
         d = f.read()
         if not 'PID' in d:
             return "{'PID': ''}"
+        return d
+
+def readsncmd():
+    with open(sncmd, 'r') as f:
+        d = f.read()
+       
         return d
 
 
@@ -87,21 +97,31 @@ def apppid():
 
 
 
-def appfilemakeifno():
+def filemakeifno(file):
     # PID 2
-    if not (path.exists(appdatfile)):
+    if not (path.exists(file)):
 
         open(appdatfile, 'w')
+    
         
 
 def sessionsdatintegrety(contents):
     print('This is contents : ' + str(contents))
     return search(r"\'\{PID\'\:\s\d+\}", str(contents))
 
+def sncmdintegraty(contents):
+    currentwd = getcwd()
+    searchstrng = currentwd + snpy + ' start' 
+    pydir = check_output(['where', 'python']).decode('unicode_escape').split()
+    
+    return search('pydir[0] ' + 'searchstrng', str(contents))
+    
+
+
 
 def isappsessioncurrentifnodo():
     appdirmakeifno()
-    appfilemakeifno()
+    filemakeifno(appdatfile)
     appdatfilecontents = {}
     #PID 3
 
@@ -130,9 +150,19 @@ def isappsessioncurrentifnodo():
         os.system('tskill ' + appdatfilecontents['PID'])
         f.write(appidstr)
 
+    def issncmdfileinstartupifnodo():
+        filemakeifno(snmakesnd)
+        snmdcontents = readsncmd()
+        sncmdintegraty(snmdcontents)
+        
+        
+
+    
+
 def commandstart():
     # appfilemakeifno()
     isappsessioncurrentifnodo()
+    issncmdfileinstartupifnodo()
 
     while True:
         uinput = input('$$')

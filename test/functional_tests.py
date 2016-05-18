@@ -35,34 +35,22 @@ class initialSessionTest(unittest.TestCase):
 # provide option to quit
 #output
 
-    # PID 1 is there a datafolder, if not make one
+    
  
     def test_can_verify_session_integrety_and_prompt_for_options_based_on_findings(self):
+        # PID 1 is there a datafolder, if not make one
         self.assertTrue(sn.appdirmakeifno())
 
+        #don't forget to test the app reaction to a session alreadly running
+
+        # PID 2 is there a sessions.dat file, if not make one
 
 
 
-# Jody set the stakenani.conf to the appropriate path and kept the wallets he did not want to run at None
-# assert ('turbostake') in sn.envars['coinlist']
 
-# prompt user for input on an infinite loop
-
-# Enter help to list commands
-#assert 'help' in str(sn.commandhelp)
-# output = stakenanny.commandhelp()
-#assert 'not a valid command' in str(stakenannyb.commandstart.
-# ndj skipping becuase it will test the inside of an infinite loop, not sure how to implement that in tdd just yet
-# provide bad command type help for options message.
-
-
-# provide option to quit
-#output 
-
-# PID 1 is there a datafolder, if not make one
-#assertTrue    assertTrue(sn.appdirmakeifno())
 # PID 2 is there a sessions.dat file, if not make one
 # PID 3 if there is a sessions.dat make sure it has the proper contents format place current PID into file
+
 # PID 4 file check to see if it matches current PID
 # 
 #within the stakenannydir in %appdata% create a data folder, in the datafolder create an instance.dat file
@@ -74,6 +62,7 @@ class initialSessionTest(unittest.TestCase):
 #
 
 # start automatically durring bootup boot up, provide a delay, give the system a chance to start some processes
+#C:\Users\Noe\AppData\Roaming\Microsoft\Windows\Start Menu\Programs : apdata + r'\Microsoft\Windows\Start Menu\Programs'
 
 # 
 # exact, prompt user "do you want stakenanny to run automatically on startup for
