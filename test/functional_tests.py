@@ -19,8 +19,21 @@ spath.append('..\stakenannyb')
 import stakenannyb as sn
 
 
-
+ 
 class initialSessionTest(unittest.TestCase):
+    def setUp(sef):
+        self.app = sn.commandstart()
+    
+    def tearDown(self):
+        self.app.quit() = sn.commandquit()
+
+
+    def test_setup_is_correct(self):
+        self.assertTrue(sn.setup())
+
+    def test_issncmdfileinstantupifnodo_is_correct(self):
+        self.assertTrue(sn.setup.issncmdfileinstartupifnodo())
+        
 
     def test_can_place_config_file_into_environment_variables(self):
         # Jody set the stakenani.conf to the appropriate path and kept the wallets he did not want to run at None

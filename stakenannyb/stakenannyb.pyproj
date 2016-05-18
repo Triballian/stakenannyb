@@ -30,6 +30,18 @@
     <Compile Include="candiapps\utils.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="isappsessioncurrentifnodo.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="issncmdfileinstartupifnodo.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="finddirmakeifno.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="setup.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="stakenannyb.py" />
     <Compile Include="__init__.py" />
   </ItemGroup>
