@@ -1,7 +1,7 @@
 #functional_tests
 
 from os import chdir
-
+import unittest
 #, getcwd
 
 
@@ -9,31 +9,58 @@ from os import chdir
 #cwd = getcwd()
 #print ('this is current working directory: ' + str(cwd))
 
-#chdir('..\stakenannyb')
+
 
 from sys import path as spath
+
+#import stakenannyb as sn
+
 spath.append('..\stakenannyb')
+import stakenannyb as sn
 
 
-import stakenannyb
+
+class initialSessionTest(unittest.TestCase):
+
+    def test_can_place_config_file_into_environment_variables(self):
+        # Jody set the stakenani.conf to the appropriate path and kept the wallets he did not want to run at None
+        self.assertIn('turbostake', sn.envars['coinlist'])
+        # prompt user for input on an infinite loop
+
+        # Enter help to list commands
+        self.assertIn('help', str(sn.commandhelp))
+#assert 'not a valid command' in str(stakenannyb.commandstart.
+# ndj skipping becuase it will test the inside of an infinite loop, not sure how to implement that in tdd just yet
+# provide bad command type help for options message.
+# provide option to quit
+#output
+
+    # PID 1 is there a datafolder, if not make one
+ 
+    def test_can_verify_session_integrety_and_prompt_for_options_based_on_findings(self):
+        self.assertTrue(sn.appdirmakeifno())
+
 
 
 
 # Jody set the stakenani.conf to the appropriate path and kept the wallets he did not want to run at None
-assert ('turbostake') in stakenannyb.envars['coinlist']
+# assert ('turbostake') in sn.envars['coinlist']
 
 # prompt user for input on an infinite loop
 
 # Enter help to list commands
-assert 'help' in str(stakenannyb.commandhelp)
+#assert 'help' in str(sn.commandhelp)
 # output = stakenanny.commandhelp()
-
+#assert 'not a valid command' in str(stakenannyb.commandstart.
+# ndj skipping becuase it will test the inside of an infinite loop, not sure how to implement that in tdd just yet
 # provide bad command type help for options message.
 
 
 # provide option to quit
+#output 
 
 # PID 1 is there a datafolder, if not make one
+#assertTrue    assertTrue(sn.appdirmakeifno())
 # PID 2 is there a sessions.dat file, if not make one
 # PID 3 if there is a sessions.dat make sure it has the proper contents format place current PID into file
 # PID 4 file check to see if it matches current PID
@@ -77,3 +104,5 @@ assert 'help' in str(stakenannyb.commandhelp)
 # stakestatus yesterday tells you how much each wallet staked as of 12am today from the day before.
 # stakestatus sellthird gives you a calculation of 1/3 of what was staked as of 12am today from the day before
 # the app automatically displays a summary at the top of the screen.
+if __name__ == '__main__':
+    unittest.main(warnings='ignore')

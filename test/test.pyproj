@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>25c551f5-e5ab-4538-9789-82a41e59b616</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>tests.py</StartupFile>
+    <StartupFile>test.py</StartupFile>
     <SearchPath>.;..\stakenannyb</SearchPath>
     <WorkingDirectory>..\stakenannyb</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -29,7 +29,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="functional_tests.py" />
-    <Compile Include="tests.py">
+    <Compile Include="test.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="__init__.py" />
