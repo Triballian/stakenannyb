@@ -39,6 +39,7 @@ class initialSessionTest(unittest.TestCase):
         self.assertIn('turbostake', sn.envars['coinlist'])
         # prompt user for input on an infinite loop
 
+
         # Enter help to list commands
         self.assertIn('help', str(sn.commandhelp))
 #assert 'not a valid command' in str(stakenannyb.commandstart.
@@ -67,7 +68,7 @@ class initialSessionTest(unittest.TestCase):
 # 
 #within the stakenannydir in %appdata% create a data folder, in the datafolder create an instance.dat file
 # 
-
+# stakenanny is not detected in the startup folder, would you like stakenanny to run when windows starts?[y,n]
 # cehck for cmd file in start up folder, check the contents. If contents are not
 # use regex to make sure the format is correct
 # if there is an entry already

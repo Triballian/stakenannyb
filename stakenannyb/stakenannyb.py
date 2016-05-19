@@ -30,8 +30,8 @@ from sys import exit, argv
 
 from candiapps.utils import getconf
 
-from os import path, getenv, mkdir, system, getcwd
-from subprocess import check_output
+from os import path, getenv, mkdir, system
+
 
 from re import sub, search
 from ast import literal_eval
@@ -45,11 +45,7 @@ appdata = getenv('appdata').replace('\\', '/')
 appdirpath = sub(r'[C|c]:|/$', '', appdata) + '/stakenanny'
 appdatadirpath = appdirpath + '/data'
 appdatfile = appdatadirpath + '/session.dat'
-
-
-startmenu = appdata + r'/Microsoft/Windows/Start Menu/Programs/Startup'
-sncmd = startmenu + '/stakenammy.cmd'
-snpy = r'\stakenannyb.py'
+snpy = 'stakenannyb.py'
 
 
 def printoutput(list):
@@ -69,26 +65,8 @@ def commandcoinssupported():
 def commandquit():
     exit(msgexitu)
 
-
-def sncmdintegraty(contents):
-    currentwd = getcwd()
-    searchstrng = currentwd + snpy + ' start' 
-    pydir = check_output(['where', 'python']).decode('unicode_escape').split()
-    
-    return search('pydir[0] ' + 'searchstrng', str(contents))
-
-    if not appdatfilecontents['PID']==apppidstr['PID']:
-        
-        print('\tAnnother stakenanny session is currently running\n')
-        print('\tPlease continue in the stakenanny session that is already running,\n$$')
-        isappkill=input('\tOr type: [stopother] to continue with this session amd end the previous session.')
-        if not isappkill:
-            quit('exit at user request')
-        os.system('tskill ' + appdatfilecontents['PID'])
-        f.write(appidstr)
-
 def commandstart():
-    setup(appdirpath, appdatfile)
+    setup(appdirpath, appdatfile, startmenu, appdata, snpy)
     # appfilemakeifno()
     
     while True:

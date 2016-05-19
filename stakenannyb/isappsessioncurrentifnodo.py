@@ -4,7 +4,7 @@ from getfilecontents import readdatfile
 from filemakeifno import filemakeifno
 
 from ast import literal_eval
-from os import getpid
+from os import getpid, system
 from re import search
 
 
@@ -40,4 +40,14 @@ def isappsessioncurrentifnodo(appdirpath, appdatfile):
     appdatfilecontents = literal_eval(str(readdatfile(appdatfile)))
 
     print (str(appdatfilecontents['PID']) + '\=\=' + str(apppidstr['PID']))
+
+    if not appdatfilecontents['PID']==apppidstr['PID']:
+        
+        print('\tAnnother stakenanny session is currently running\n')
+        print('\tPlease continue in the stakenanny session that is already running,\n$$')
+        isappkill=input('\tOr type: [stopother] to continue with this session amd end the previous session.')
+        if not isappkill:
+            quit('exit at user request')
+        os.system('tskill ' + appdatfilecontents['PID'])
+        f.write(appidstr)
     return True
