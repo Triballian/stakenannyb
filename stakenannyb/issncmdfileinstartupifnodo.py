@@ -8,7 +8,7 @@ from re import search
 
 def sncmdintegraty(contents, searchstrng):
                 
-    return search(r"\w\w\w", str(contents))
+    return search(r"\w\w\w\w", str(contents))
 
     
 
