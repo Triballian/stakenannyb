@@ -6,7 +6,7 @@ def getfilecontents(func):
     return openfile
 
 @getfilecontents
-def readsncmd(file):          
+def readsncmd(file, d=''):          
         return d
 
 @getfilecontents
