@@ -70,11 +70,6 @@ def commandquit():
     exit(msgexitu)
 
 
-
-def sessionsdatintegrety(contents):
-    print('This is contents : ' + str(contents))
-    return search(r"\'\{PID\'\:\s\d+\}", str(contents))
-
 def sncmdintegraty(contents):
     currentwd = getcwd()
     searchstrng = currentwd + snpy + ' start' 

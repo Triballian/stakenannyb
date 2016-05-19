@@ -8,7 +8,13 @@ from os import getpid
 def apppid():
     return getpid()
 
-def isappsessioncurrentifnodo(appdirpath, appdatfile):
+
+
+def isappsessioncurrentifnodo(appdirpath, appdatfile, contents):
+    def sessionsdatintegrety(contents):
+        print('This is contents : ' + str(contents))
+        return search(r"\'\{PID\'\:\s\d+\}", str(contents))
+
     finddirmakeifno(appdirpath)
     filemakeifno(appdatfile)
     appdatfilecontents = {}
