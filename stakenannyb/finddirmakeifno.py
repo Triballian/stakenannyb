@@ -4,6 +4,6 @@ def finddirmakeifno(dirpath):
     print('this is dirpath: ' + dirpath)
     if not (path.isdir(dirpath)):
         mkdir(dirpath)
-    if not (path.isdir(dirpath)):
-        mkdir(dirpath)
+    if not (path.isdir(appdatadirpath)):
+        mkdir(appdatadirpath)
     return True

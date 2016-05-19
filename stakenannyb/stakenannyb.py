@@ -25,6 +25,7 @@ Created on Apr 16, 2016
 
 
 '''
+import ptvsd
 from setup import setup
 from sys import exit, argv
 
@@ -66,7 +67,7 @@ def commandquit():
     exit(msgexitu)
 
 def commandstart():
-    setup(appdirpath, appdatfile, appdata, snpy)
+    setup(appdirpath, appdatfile, appdatadirpath, appdata, snpy)
     # appfilemakeifno()
     
     while True:

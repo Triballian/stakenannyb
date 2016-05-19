@@ -17,10 +17,10 @@ def sessionsdatintegrety(contents):
 
 
 
-def isappsessioncurrentifnodo(appdirpath, appdatfile):
+def isappsessioncurrentifnodo(appdirpath, appdatfile, appdatadirpath):
     
 
-    finddirmakeifno(appdirpath)
+    finddirmakeifno(appdirpath, appdatadirpath)
     filemakeifno(appdatfile)
     appdatfilecontents = {}
     apppidstr = {}
