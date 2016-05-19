@@ -3,25 +3,29 @@ from getfilecontents import readdatfile
 from filemakeifno import filemakeifno
 from ast import literal_eval
 from os import getpid
+from re import search
 
 
 def apppid():
     return getpid()
 
+def sessionsdatintegrety(contents):
+    print('This is contents : ' + str(contents))
+    return search(r"\'\{PID\'\:\s\d+\}", str(contents))
 
 
-def isappsessioncurrentifnodo(appdirpath, appdatfile, contents):
-    def sessionsdatintegrety(contents):
-        print('This is contents : ' + str(contents))
-        return search(r"\'\{PID\'\:\s\d+\}", str(contents))
+
+def isappsessioncurrentifnodo(appdirpath, appdatfile):
+    
 
     finddirmakeifno(appdirpath)
     filemakeifno(appdatfile)
     appdatfilecontents = {}
     apppidstr = {}
+
     #PID 3
 
-    appdatfilecontents = readdatfile(appdatfile)
+    appdatfilecontents = literal_eval(str(readdatfile(appdatfile)))
     print ("This is appdatfilecontents" + str(appdatfilecontents))
     apppidstr['PID'] = apppid()
     if not sessionsdatintegrety(appdatfilecontents):
@@ -31,7 +35,7 @@ def isappsessioncurrentifnodo(appdirpath, appdatfile, contents):
     print("this is appdatfilecontents[\'PID\'] " + str(appdatfilecontents['PID']))
     print("this is apppidstr[\'PID\'] " + str(apppidstr['PID']))
 
-    appdatfilecontents = literal_eval(str(readdatfile()))
+    appdatfilecontents = literal_eval(str(readdatfile(appdatfile)))
 
     print (str(appdatfilecontents['PID']) + '\=\=' + str(apppidstr['PID']))
     return True

@@ -1,5 +1,5 @@
 def getfilecontents(func):
-    def openfile(file, d=''): 
+    def openfile(file, d=''):
         with open(file, 'r') as f:
             d = f.read()
             return func(file, d)
