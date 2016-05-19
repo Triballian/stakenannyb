@@ -2,6 +2,11 @@ from finddirmakeifno import finddirmakeifno
 from getfilecontents import readdatfile
 from filemakeifno import filemakeifno
 from ast import literal_eval
+from os import getpid
+
+
+def apppid():
+    return getpid()
 
 def isappsessioncurrentifnodo(appdirpath, appdatfile):
     finddirmakeifno(appdirpath)

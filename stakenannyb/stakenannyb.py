@@ -30,7 +30,7 @@ from sys import exit, argv
 
 from candiapps.utils import getconf
 
-from os import path, getenv, mkdir, getpid, system, getcwd
+from os import path, getenv, mkdir, system, getcwd
 from subprocess import check_output
 
 from re import sub, search
@@ -59,10 +59,6 @@ def printoutput(list):
         print(item, end=' ')
     print('\n')
 
-
-
-
-
 def commandhelp():
     printoutput(listcommands)
 
@@ -74,13 +70,6 @@ def commandquit():
     exit(msgexitu)
 
 
-
-def apppid():
-    return getpid()
-
-
-
-       
 
 def sessionsdatintegrety(contents):
     print('This is contents : ' + str(contents))
