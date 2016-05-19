@@ -53,7 +53,7 @@ class initialSessionTest(unittest.TestCase):
  
     def test_can_verify_session_integrety_and_prompt_for_options_based_on_findings(self):
         # PID 1 is there a datafolder, if not make one
-        self.assertTrue(finddirmakeifno())
+        self.assertTrue(finddirmakeifno('/Users/Noe/AppData/Roaming/stakenanny', '/Users/Noe/AppData/Roaming/stakenanny/data'))
 
         #don't forget to test the app reaction to a session alreadly running
 
