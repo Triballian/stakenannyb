@@ -1,11 +1,15 @@
 from finddirmakeifno import finddirmakeifno
-def isappsessioncurrentifnodo():
+from getfilecontents import readdatfile
+from filemakeifno import filemakeifno
+from ast import literal_eval
+
+def isappsessioncurrentifnodo(appdirpath, appdatfile):
     finddirmakeifno(appdirpath)
     filemakeifno(appdatfile)
     appdatfilecontents = {}
     #PID 3
 
-    appdatfilecontents = literal_eval(str(readdatfile()))
+    appdatfilecontents = readdatfile(appdatfile)
     print ("This is appdatfilecontents" + str(appdatfilecontents))
     apppidstr['PID'] = apppid()
     if not sessionsdatintegrety(appdatfilecontents):

@@ -1,3 +1,4 @@
+from os import path
 def finddirmakeifno(dirpath):
     # PID 1
     print('this is dirpath: ' + dirpath)

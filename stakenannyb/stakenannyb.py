@@ -104,7 +104,7 @@ def sncmdintegraty(contents):
         f.write(appidstr)
 
 def commandstart():
-    setup()
+    setup(appdirpath, appdatfile)
     # appfilemakeifno()
     
     while True:
