@@ -1,3 +1,4 @@
+from finddirmakeifno import finddirmakeifno
 def isappsessioncurrentifnodo():
     finddirmakeifno(appdirpath)
     filemakeifno(appdatfile)

@@ -30,6 +30,9 @@
     <Compile Include="candiapps\utils.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="getfilecontents.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="isappsessioncurrentifnodo.py">
       <SubType>Code</SubType>
     </Compile>
@@ -37,6 +40,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="finddirmakeifno.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="filemakeifno.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="setup.py">

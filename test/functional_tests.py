@@ -22,11 +22,10 @@ import stakenannyb as sn
  
 class initialSessionTest(unittest.TestCase):
     def setUp(sef):
-        self.app = sn.commandstart()
+        self.sn = sn.commandstart()
     
     def tearDown(self):
-        self.app.quit() = sn.commandquit()
-
+        self.sn.commandquit()
 
     def test_setup_is_correct(self):
         self.assertTrue(sn.setup())

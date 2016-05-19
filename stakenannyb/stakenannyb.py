@@ -59,18 +59,8 @@ def printoutput(list):
         print(item, end=' ')
     print('\n')
 
-def readdatfile():
-    with open(appdatfile, 'r') as f:
-        d = f.read()
-        if not 'PID' in d:
-            return "{'PID': ''}"
-        return d
 
-def readsncmd():
-    with open(sncmd, 'r') as f:
-        d = f.read()
-       
-        return d
+
 
 
 def commandhelp():
@@ -89,11 +79,7 @@ def apppid():
     return getpid()
 
 
-def filemakeifno(file):
-    # PID 2
-    if not (path.exists(file)):
 
-        open(appdatfile, 'w')
        
 
 def sessionsdatintegrety(contents):
