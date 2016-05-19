@@ -2,7 +2,7 @@ def getfilecontents(func):
     def openfile(file): 
         with open(file, 'r') as f:
             d = f.read()
-            return func()
+            return func(file)
     return openfile
 
 @getfilecontents
