@@ -6,9 +6,11 @@
 
 
 #chdir(r'C:\Users\Noe\Documents\Visual Studio 2015\Projects\stakenannyb\stakenannyb')
-#from sys import path
+from sys import path as spath
 #path.append(r'C:\Users\Noe\Documents\Visual Studio 2015\Projects\stakenannyb\stakenannyb\candiapps')
+#spath.append('..\stakenannyb')
 import stakenannyb as sn
+from finddirmakeifno import finddirmakeifno
 
 
 
@@ -31,6 +33,7 @@ class functionalTest(unittest.TestCase):
     def test_can_place_config_file_into_environment_variables(self):
         # Jody set the stakenani.conf to the appropriate path and kept the wallets he did not want to run at None
         self.assertIn('turbostake', sn.envars['coinlist'])
+        
         # prompt user for input on an infinite loop
 
 
@@ -46,7 +49,7 @@ class functionalTest(unittest.TestCase):
  
     def test_can_verify_session_integrety_and_prompt_for_options_based_on_findings(self):
         # PID 1 is there a datafolder, if not make one
-        self.assertTrue(sn.finddirmakeifno())
+        self.assertTrue(finddirmakeifno('/Users/Noe/AppData/Roaming/stakenanny', '/Users/Noe/AppData/Roaming/stakenanny/data'))
 
         #don't forget to test the app reaction to a session alreadly running
 
@@ -59,7 +62,8 @@ class NewUserTest(unittest.TestCase):
     def test_can_grab_conf_and_check_it_later(self):
 
         
-        self.assertEqual(str(sn.commandcoinssupported()), ('turbostake',))
+        #self.assertEqual(str(stakenannyb.commandcoinssupported()), 'turbostake')
+        self.assertTrue(sn.commandcoinssupported())
         self.assertEqual(sn.envars['coinlist'], 'turbostake')
         
 

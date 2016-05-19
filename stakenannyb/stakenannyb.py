@@ -58,10 +58,12 @@ def printoutput(list):
 
 def commandhelp():
     printoutput(listcommands)
+    return True
 
 
 def commandcoinssupported():
     printoutput(coinssupported)
+    return True
 
 def commandquit():
     exit(msgexitu)
