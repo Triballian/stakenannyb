@@ -7,13 +7,13 @@ from re import search
 
 
 def sncmdintegraty(contents, searchstrng):
-        
-    return search('searchstrng', str(contents))
+                
+    return search(r"\w\w\w", str(contents))
 
     
 
 
-def issncmdfileinstartupifnodo(appdata, appdatfile, snpy):
+def issncmdfileinstartupifnodo(appdata, snpy):
         startupfolder = appdata + r'/Microsoft/Windows/Start Menu/Programs/Startup'
         sncmd = startupfolder + '/stakenammy.cmd'
 
@@ -23,9 +23,10 @@ def issncmdfileinstartupifnodo(appdata, appdatfile, snpy):
          
         
         filemakeifno(sncmd)
-        snmdcontents = readsncmd(appdatfile)
-        filecontents=sncmdintegraty(snmdcontents, sncommandln)
-        if not filecontents == snpy:
+        snmdcontents = readsncmd(sncmd)
+        
+        print ('sncommandln:' + str(sncommandln))
+        if not sncmdintegraty(snmdcontents, sncommandln):
             isappstartup=input('\t Stakenanny start script is not detected in windws startup directory. \n\tWould you like stakenanny to run when windows starts up?[y/n]')
             if isappstartup.lower()=='y':
                  with open(sncmd, 'w+') as f:

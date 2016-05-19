@@ -3,5 +3,5 @@ from isappsessioncurrentifnodo import isappsessioncurrentifnodo
 
 def setup(appdirpath, appdatfile, appdata, snpy):
     isappsessioncurrentifnodo(appdirpath, appdatfile)
-    issncmdfileinstartupifnodo(appdata, appdatfile, snpy)
+    issncmdfileinstartupifnodo(appdata, snpy)
     return True
