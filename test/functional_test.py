@@ -14,9 +14,10 @@ import unittest
 from sys import path as spath
 
 #import stakenannyb as sn
-
+#chdir('..\stakenannyb')
 spath.append('..\stakenannyb')
 import stakenannyb as sn
+from stakenannyb.filemakeifno import filemakeifno
 
 
  
@@ -27,8 +28,8 @@ class initialSessionTest(unittest.TestCase):
     #def tearDown(self):
     #    self.sn.commandquit()
 
-    def test_setup_is_correct(self):
-        self.assertTrue(sn.setup())
+    #def test_setup_is_correct(self):
+    #    self.assertTrue(sn.setup())
 
     def test_issncmdfileinstantupifnodo_is_correct(self):
         self.assertTrue(sn.setup.issncmdfileinstartupifnodo())
@@ -52,7 +53,7 @@ class initialSessionTest(unittest.TestCase):
  
     def test_can_verify_session_integrety_and_prompt_for_options_based_on_findings(self):
         # PID 1 is there a datafolder, if not make one
-        self.assertTrue(sn.appdirmakeifno())
+        self.assertTrue(finddirmakeifno())
 
         #don't forget to test the app reaction to a session alreadly running
 

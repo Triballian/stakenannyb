@@ -6,8 +6,9 @@
     <ProjectGuid>25c551f5-e5ab-4538-9789-82a41e59b616</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>test.py</StartupFile>
-    <SearchPath>.;..\stakenannyb</SearchPath>
-    <WorkingDirectory>..\stakenannyb</WorkingDirectory>
+    <SearchPath>.</SearchPath>
+    <WorkingDirectory>
+    </WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>test</Name>
     <RootNamespace>test</RootNamespace>
@@ -18,6 +19,8 @@
     <InterpreterArguments>
     </InterpreterArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+    <CommandLineArguments>
+    </CommandLineArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -28,7 +31,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="functional_tests.py" />
+    <Compile Include="functional_test.py" />
     <Compile Include="test.py">
       <SubType>Code</SubType>
     </Compile>
