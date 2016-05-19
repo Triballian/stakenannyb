@@ -12,6 +12,7 @@ def isappsessioncurrentifnodo(appdirpath, appdatfile):
     finddirmakeifno(appdirpath)
     filemakeifno(appdatfile)
     appdatfilecontents = {}
+    apppidstr = {}
     #PID 3
 
     appdatfilecontents = readdatfile(appdatfile)

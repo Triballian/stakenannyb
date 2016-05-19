@@ -45,7 +45,7 @@ appdata = getenv('appdata').replace('\\', '/')
 appdirpath = sub(r'[C|c]:|/$', '', appdata) + '/stakenanny'
 appdatadirpath = appdirpath + '/data'
 appdatfile = appdatadirpath + '/session.dat'
-apppidstr = {}
+
 
 startmenu = appdata + r'/Microsoft/Windows/Start Menu/Programs/Startup'
 sncmd = startmenu + '/stakenammy.cmd'
