@@ -66,7 +66,7 @@ def commandquit():
     exit(msgexitu)
 
 def commandstart():
-    setup(appdirpath, appdatfile, startmenu, appdata, snpy)
+    setup(appdirpath, appdatfile, appdata, snpy)
     # appfilemakeifno()
     
     while True:

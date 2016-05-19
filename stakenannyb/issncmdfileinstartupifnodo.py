@@ -13,8 +13,8 @@ def sncmdintegraty(contents, searchstrng):
 
 
 def issncmdfileinstartupifnodo(appdata, snpy):
-        startmenu = appdata + r'/Microsoft/Windows/Start Menu/Programs/Startup'
-        sncmd = startmenu + '/stakenammy.cmd'
+        startupfolder = appdata + r'/Microsoft/Windows/Start Menu/Programs/Startup'
+        sncmd = startupfolder + '/stakenammy.cmd'
 
         currentwd = getcwd()
         pydir = check_output(['where', 'python']).decode('unicode_escape').split()
