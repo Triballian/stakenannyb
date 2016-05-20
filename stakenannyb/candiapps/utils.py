@@ -32,6 +32,7 @@ Created on Apr 16, 2016
 '''
 #utils.py python3 
 from re import sub
+#from ast import literal_eval
 
 def getconf(name):
     """ 
@@ -43,14 +44,16 @@ def getconf(name):
     cfile = open(cname + '.conf')
     
     envars = {}
+
    
     for line in cfile:
         
 
         marker = '#'
 
-        crline = line.partition(marker)[0].strip().replace('\\', '/')
-        crline = sub(r'[C|c]:|/$', '', crline)
+        #crline = line.partition(marker)[0].strip().replace('\\', '/')
+        crline = line.partition(marker)[0].strip()
+        #crline = sub(r'[C|c]:|/$', '', crline)
         
         #print('this is the line: crline ' + crline)
 
@@ -68,7 +71,10 @@ def getconf(name):
         
         #print('this is the line: cdata[1] ' + str(cdata[1]))
         #print('this is the line:' + str(line))
-        envars[str(cdata[0].lower())] = sub('\[|\]|\'', '' , str(cdata[1].lstrip().split(',')))
+        alist = cdata[1].strip().split(',')
+        blist = sub(r'\[|\]|\"', '' , str(cdata[1].strip().split(',')))
+        clist = str(cdata[1].strip().split(',')).replace(r'"', '')
+        envars[str(cdata[0].lower())] = cdata[1].strip().split(',')
         
         
 

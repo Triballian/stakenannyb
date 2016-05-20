@@ -51,7 +51,13 @@ appdirpath = sub(r'[C|c]:|/$', '', appdata) + '/stakenanny'
 appdatadirpath = appdirpath + '/data'
 appdatfile = appdatadirpath + '/session.dat'
 snpy = 'stakenannyb.py'
-coinlist = [envars['coinlist'],] 
+#coinlist = envars['coinlist'].split(',')
+
+
+coinlist = set(envars['coinlist'])
+
+#coinlist = [envars['coinlist'],] 
+
 
 #def getlist(envarcoinlist):
 #    if len(envarcoinlist) == 2:
@@ -60,8 +66,18 @@ coinlist = [envars['coinlist'],]
 #        return set(envarcoinlist)
 #    else:
 #        return ''
+#def getlist(list):
+#    used = []
+#    return [x for x in list if x not in used and (used.append(x) or True)]
 
 
+#def getlist2(list):
+#    x=0
+#    while x < len(list):
+#        print(str(list[x].replace(r"' ", r"'")))
+#        x+=1
+
+#getlist2(coinlist)
     
 def printoutput(list):
     print('')
@@ -88,6 +104,9 @@ def commandquit():
 
 #coinlist = getlist((envars['coinlist'],))
 #coinlist = getlist((envars['coinlist'] + ('tek',)))
+#coinlist = getlist(map(set,envars['coinlist']))
+#list = envars['coinlist'].split(',')
+#coinlist = getlist(list)
 def commandstart():
     setup(appdirpath, appdatfile, appdatadirpath, appdata, snpy)
     # appfilemakeifno()
