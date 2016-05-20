@@ -45,6 +45,9 @@
     <Compile Include="filemakeifno.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="currentrunningwalletscheck.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="setup.py">
       <SubType>Code</SubType>
     </Compile>

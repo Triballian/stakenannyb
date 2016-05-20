@@ -109,7 +109,7 @@ class initialSessionTest(unittest.TestCase):
 #2 things to fix, unique coin list and if list is more than one item then set
 #ensure that you are not prompted to stopother evertime
 
-# Jody gets an error complaining that a listed coin is not supported buy stakenanny. Change the config file to reflect what is listed. use coinlist to see what conis are suppored
+# Jody gets an error complaining that a listed coin is not supported by stakenanny. Change the config file to reflect what is listed. use coinlist to see what conis are suppored
 
 # He runs the command or batch file python test_stakenany.py on the commandline or link. #the app will provide a batch file for him to use. probably
 # the app states that python3 is required to run this app. This is good as even I can make the mistake of using the wrong python vesion

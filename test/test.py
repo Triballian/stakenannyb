@@ -11,6 +11,7 @@
 #spath.append('..\stakenannyb')
 import stakenannyb as sn
 from finddirmakeifno import finddirmakeifno
+from currentrunningwalletscheck import currentrunningwalletscheck
 
 
 
@@ -30,7 +31,11 @@ class NewUserTest(unittest.TestCase):
         #self.assertEqual(sn.commandcoinssupported(), 'turbostake')
         self.assertTrue(sn.commandcoinssupported())
         
-        self.assertEqual(sn.envars['coinlist'], 'turbostake')
+        self.assertEqual(sn.envars['coinlist'], ['turbostake'])
+
+    def test_can_grab_pid_of_current_running_wallet(self):
+        self.assertIn('pid', currentrunningwalletscheck('turbostake.exe')) 
+        
         
 
     #def test_make_file_if_not_exitst(slef): 

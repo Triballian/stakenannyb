@@ -71,9 +71,9 @@ def getconf(name):
         
         #print('this is the line: cdata[1] ' + str(cdata[1]))
         #print('this is the line:' + str(line))
-        alist = cdata[1].strip().split(',')
-        blist = sub(r'\[|\]|\"', '' , str(cdata[1].strip().split(',')))
-        clist = str(cdata[1].strip().split(',')).replace(r'"', '')
+        #alist = cdata[1].strip().split(',')
+        #blist = sub(r'\[|\]|\"', '' , str(cdata[1].strip().split(',')))
+        #clist = str(cdata[1].strip().split(',')).replace(r'"', '')
         envars[str(cdata[0].lower())] = cdata[1].strip().split(',')
         
         

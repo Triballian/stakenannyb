@@ -107,8 +107,12 @@ def commandquit():
 #coinlist = getlist(map(set,envars['coinlist']))
 #list = envars['coinlist'].split(',')
 #coinlist = getlist(list)
+#your coin turbo stake you have in the coinslist of stakenanny.conf is currently not being run by stakenannb and can't be managed automatically.
+#please shut this wallet down then type retry. [killwallet|retry|ignore]
+#ignore, currently ignoreing turbostake
+
 def commandstart():
-    setup(appdirpath, appdatfile, appdatadirpath, appdata, snpy)
+    setup(appdirpath, appdatfile, appdatadirpath, appdata, snpy, coinlist)
     # appfilemakeifno()
     
     while True:
