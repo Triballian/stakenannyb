@@ -39,8 +39,11 @@ from ast import literal_eval
 from nt import remove
 
 coinssupported =('turbostake',)
-listcommands=('help', 'quit', 'coinssupported') 
+listcommands=('help', 'quit', 'coinssupported', 'coinlist') 
 envars = getconf('stakenanny')
+
+
+    
 msgexitu = 'Exited at user request!'
 
 appdata = getenv('appdata').replace('\\', '/')
@@ -48,8 +51,18 @@ appdirpath = sub(r'[C|c]:|/$', '', appdata) + '/stakenanny'
 appdatadirpath = appdirpath + '/data'
 appdatfile = appdatadirpath + '/session.dat'
 snpy = 'stakenannyb.py'
+coinlist = [envars['coinlist'],] 
+
+#def getlist(envarcoinlist):
+#    if len(envarcoinlist) == 2:
+#        return envarcoinlist
+#    elif len(envars['coinlist']) > 2:
+#        return set(envarcoinlist)
+#    else:
+#        return ''
 
 
+    
 def printoutput(list):
     print('')
     print('\t', end=' ')
@@ -66,10 +79,15 @@ def commandcoinssupported():
     printoutput(coinssupported)
     return True
 
+def commandcoinlist():
+	printoutput(coinlist)
+
 def commandquit():
     remove(appdatfile)        
     exit(msgexitu)
 
+#coinlist = getlist((envars['coinlist'],))
+#coinlist = getlist((envars['coinlist'] + ('tek',)))
 def commandstart():
     setup(appdirpath, appdatfile, appdatadirpath, appdata, snpy)
     # appfilemakeifno()

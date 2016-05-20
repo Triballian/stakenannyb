@@ -27,14 +27,20 @@ class initialSessionTest(unittest.TestCase):
     #works but unexpectedly
     #def setUp(self):
     #    self.sn = sn.commandstart()
-    def setUp(self):
-        with open('/Users/Noe/AppData/Roaming/stakenanny/data/session.dat', 'w+') as f:
-            f.write(str("{'PID': 10637}"))
+
+    #def setUp(self):
+    #    with open('/Users/Noe/AppData/Roaming/stakenanny/data/session.dat', 'w+') as f:
+    #        f.write(str("{'PID': 10637}"))
+
     #def tearDown(self):
     #    self.sn.commandquit()
 
     #def test_setup_is_correct(self):
     #    self.assertTrue(sn.setup())
+
+    #def test_getlist_returns_string(self):
+         
+    #    self.assertIn('turbostake', sn.getlist(('turbostake',)))
 
     def test_issncmdfileinstantupifnodo_is_correct(self):
         self.assertTrue(issncmdfileinstartupifnodo(getenv('appdata').replace('\\', '/'), 'stakenannyb.py'))
@@ -70,8 +76,8 @@ class initialSessionTest(unittest.TestCase):
 
 # PID 2 is there a sessions.dat file, if not make one
 # PID 3 if there is a sessions.dat make sure it has the proper contents format place current PID into file
-    def test_can_app_tell_iff_another_sn_is_running(self):
-        self.assertRaises()
+    #def test_can_app_tell_iff_another_sn_is_running(self):
+    #    self.assertRaises()
                 
         
 
@@ -89,6 +95,8 @@ class initialSessionTest(unittest.TestCase):
 #C:\Users\Noe\AppData\Roaming\Microsoft\Windows\Start Menu\Programs : apdata + r'\Microsoft\Windows\Start Menu\Programs'
 
 # 
+
+
 # exact, prompt user "do you want stakenanny to run automatically on startup for
 # optimal wallet startup times in user defined order. ". create cmd file and 
 # pace in startup folder
@@ -96,7 +104,11 @@ class initialSessionTest(unittest.TestCase):
 # coinlist diplays a list of coins suported buy stakenanny sperated buy a comma, example digicube,turbostake
 
 # check list of supported coins. to be set in coinfig file coinlist=digicube,turbostake coins will be run in the order listed
+
 # check for duplicate listings and duplicate coinlist entry's 
+#2 things to fix, unique coin list and if list is more than one item then set
+#ensure that you are not prompted to stopother evertime
+
 # Jody gets an error complaining that a listed coin is not supported buy stakenanny. Change the config file to reflect what is listed. use coinlist to see what conis are suppored
 
 # He runs the command or batch file python test_stakenany.py on the commandline or link. #the app will provide a batch file for him to use. probably

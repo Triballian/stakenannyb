@@ -19,6 +19,10 @@ import unittest
 
 class NewUserTest(unittest.TestCase):
 
+    #def test_getlist_returns_string_if_list_has_multiple_coins(self):
+         
+    #    self.assertIn('turbostake', sn.getlist((('turbostake', 'tekcoin') + ('',))))
+
 
     def test_can_grab_conf_and_check_it_later(self):
 
