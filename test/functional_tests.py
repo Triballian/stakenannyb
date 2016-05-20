@@ -13,6 +13,8 @@ import unittest
 
 from sys import path as spath
 from finddirmakeifno import finddirmakeifno
+from issncmdfileinstartupifnodo import issncmdfileinstartupifnodo
+from os import getenv
 
 #import stakenannyb as sn
 
@@ -22,7 +24,8 @@ import stakenannyb as sn
 
  
 class initialSessionTest(unittest.TestCase):
-    #def setUp(sef):
+    #works but unexpectedly
+    #def setUp(self):
     #    self.sn = sn.commandstart()
     
     #def tearDown(self):
@@ -31,8 +34,8 @@ class initialSessionTest(unittest.TestCase):
     #def test_setup_is_correct(self):
     #    self.assertTrue(sn.setup())
 
-    #def test_issncmdfileinstantupifnodo_is_correct(self):
-    #    self.assertTrue(sn.setup.issncmdfileinstartupifnodo())
+    def test_issncmdfileinstantupifnodo_is_correct(self):
+        self.assertTrue(issncmdfileinstartupifnodo(getenv('appdata').replace('\\', '/'), 'stakenannyb.py'))
         
 
     def test_can_place_config_file_into_environment_variables(self):
@@ -53,6 +56,7 @@ class initialSessionTest(unittest.TestCase):
  
     def test_can_verify_session_integrety_and_prompt_for_options_based_on_findings(self):
         # PID 1 is there a datafolder, if not make one
+        #def self.s
         self.assertTrue(finddirmakeifno('/Users/Noe/AppData/Roaming/stakenanny', '/Users/Noe/AppData/Roaming/stakenanny/data'))
 
         #don't forget to test the app reaction to a session alreadly running
