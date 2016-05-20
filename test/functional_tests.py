@@ -11,14 +11,14 @@ import unittest
 
 
 
-from sys import path as spath
+#from sys import path as spath
 from finddirmakeifno import finddirmakeifno
 from issncmdfileinstartupifnodo import issncmdfileinstartupifnodo
 from os import getenv
 
 #import stakenannyb as sn
 
-spath.append('..\stakenannyb')
+#spath.append('..\stakenannyb')
 import stakenannyb as sn
 
 
@@ -27,7 +27,9 @@ class initialSessionTest(unittest.TestCase):
     #works but unexpectedly
     #def setUp(self):
     #    self.sn = sn.commandstart()
-    
+    def setUp(self):
+        with open('/Users/Noe/AppData/Roaming/stakenanny/data/session.dat', 'w+') as f:
+            f.write(str("{'PID': 10637}"))
     #def tearDown(self):
     #    self.sn.commandquit()
 
@@ -68,6 +70,10 @@ class initialSessionTest(unittest.TestCase):
 
 # PID 2 is there a sessions.dat file, if not make one
 # PID 3 if there is a sessions.dat make sure it has the proper contents format place current PID into file
+    def test_can_app_tell_iff_another_sn_is_running(self):
+        self.assertRaises()
+                
+        
 
 # PID 4 file check to see if it matches current PID
 # 

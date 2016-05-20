@@ -36,6 +36,7 @@ from os import path, getenv, mkdir, system
 
 from re import sub, search
 from ast import literal_eval
+from nt import remove
 
 coinssupported =('turbostake',)
 listcommands=('help', 'quit', 'coinssupported') 
@@ -66,6 +67,7 @@ def commandcoinssupported():
     return True
 
 def commandquit():
+    remove(appdatfile)        
     exit(msgexitu)
 
 def commandstart():
