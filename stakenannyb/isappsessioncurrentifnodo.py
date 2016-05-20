@@ -13,7 +13,7 @@ def apppid():
 
 def sessionsdatintegrety(contents):
     print('This is contents : ' + str(contents))
-    return str(search(r"\'\{PID\'\:\s\d+\}", str(contents)))
+    return search(r"{'PID':\s\d+}", str(contents))
 
 
 
