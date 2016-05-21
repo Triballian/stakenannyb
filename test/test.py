@@ -33,8 +33,14 @@ class NewUserTest(unittest.TestCase):
         
         self.assertEqual(sn.envars['coinlist'], ['turbostake'])
 
+    
+        
+
     def test_can_grab_pid_of_current_running_wallet(self):
-        self.assertIn('pid', currentrunningwalletscheck('turbostake.exe')) 
+        coinpid, coinsrunning = currentrunningwalletscheck(['turbostake.exe'])
+        
+        self.assertEquals(coinsrunning, 1 )
+        self.assertIsNotNone(coinpid) 
         
         
 

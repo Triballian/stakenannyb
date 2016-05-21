@@ -37,9 +37,6 @@ def isappsessioncurrentifnodo(appdirpath, appdatfile, appdatadirpath):
         appdatfilecontents = literal_eval(str(readdatfile(appdatfile)))
     print("this is appdatfilecontents[\'PID\'] " + str(appdatfilecontents['PID']))
     print("this is apppidstr[\'PID\'] " + str(apppidstr['PID']))
-
-    
-
     print (str(appdatfilecontents['PID']) + '\=\=' + str(apppidstr['PID']))
 
     if not appdatfilecontents['PID']==apppidstr['PID']:
@@ -47,9 +44,18 @@ def isappsessioncurrentifnodo(appdirpath, appdatfile, appdatadirpath):
         print('\tAnnother stakenanny session is currently running\n')
         print('\tPlease continue in the stakenanny session that is already running,\n$$')
         isappkill=input('\tOr type: [stopother] to continue with this session amd end the previous session. ')
-        if not isappkill:
-            quit('exit at user request')
-        system('tskill ' + str(appdatfilecontents['PID']))
+        
+        while isappkill!='stopother':          
+
+            if isappkill=='stopother':
+
+                system('tskill ' + str(appdatfilecontents['PID']))
+            elif not isappkill:
+                quit('exit at user request')
+            else:
+                print('\tInvalid choice. Please type [stopother] or hit ENTER to quit this session')
+        
+        
         with open(appdatfile, 'w+') as f:
             f.write(str(apppidstr))
     return True
