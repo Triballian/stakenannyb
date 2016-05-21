@@ -30,6 +30,9 @@
     <Compile Include="candiapps\utils.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="getexenames.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="getfilecontents.py">
       <SubType>Code</SubType>
     </Compile>

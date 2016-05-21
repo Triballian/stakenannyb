@@ -37,6 +37,7 @@ from os import path, getenv, mkdir, system
 from re import sub, search
 from ast import literal_eval
 from nt import remove
+from getexenames import getexenames
 
 coinssupported =('turbostake',)
 listcommands=('help', 'quit', 'coinssupported', 'coinlist') 
@@ -52,9 +53,16 @@ appdatadirpath = appdirpath + '/data'
 appdatfile = appdatadirpath + '/session.dat'
 snpy = 'stakenannyb.py'
 #coinlist = envars['coinlist'].split(',')
+#coinlist = str(set(envars['coinlist'])).split()
+
+coinlist = []
+for coin in set(envars['coinlist']):
+    coinlist.append(coin)
+exenames=getexenames(coinlist, envars)
 
 
-coinlist = set(envars['coinlist'])
+#if len(coinlist)==1:
+#    coinlist.append('')
 
 #coinlist = [envars['coinlist'],] 
 
@@ -112,6 +120,7 @@ def commandquit():
 #ignore, currently ignoreing turbostake
 
 def commandstart():
+    print(coinlist[0])
     setup(appdirpath, appdatfile, appdatadirpath, appdata, snpy, coinlist)
     # appfilemakeifno()
     

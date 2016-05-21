@@ -2,6 +2,7 @@
 
 from os import chdir
 import unittest
+
 #, getcwd
 
 
@@ -20,6 +21,7 @@ from os import getenv
 
 #spath.append('..\stakenannyb')
 import stakenannyb as sn
+
 
 
  
@@ -71,6 +73,13 @@ class initialSessionTest(unittest.TestCase):
 
         # PID 2 is there a sessions.dat file, if not make one
 
+    def test_can_check_wallet_location_and_get_exact_exe_name(self):
+        coinlist=['turbostake','paycon']
+        coinexenames=getexenames(coinlist)
+        self.assertEquals(coins['paycon'], 'PayCon-qt.exe')
+                
+        
+
 
 
 
@@ -110,6 +119,9 @@ class initialSessionTest(unittest.TestCase):
 #ensure that you are not prompted to stopother evertime
 
 # Jody gets an error complaining that a listed coin is not supported by stakenanny. Change the config file to reflect what is listed. use coinlist to see what conis are suppored
+
+#check the given directory for each coin and get the exact .exe name for each coin. This should be done at the beginning 
+
 
 # He runs the command or batch file python test_stakenany.py on the commandline or link. #the app will provide a batch file for him to use. probably
 # the app states that python3 is required to run this app. This is good as even I can make the mistake of using the wrong python vesion

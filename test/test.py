@@ -36,11 +36,11 @@ class NewUserTest(unittest.TestCase):
     
         
 
-    def test_can_grab_pid_of_current_running_wallet(self):
-        coinpid, coinsrunning = currentrunningwalletscheck(['turbostake.exe'])
+    #def test_can_grab_pid_of_current_running_wallet(self):
+    #    coinpid, coinsrunning = currentrunningwalletscheck(['turbostake.exe'])
         
-        self.assertEquals(coinsrunning, 1 )
-        self.assertIsNotNone(coinpid) 
+    #    self.assertEquals(coinsrunning, 1 )
+    #    self.assertIsNotNone(coinpid) 
         
         
 

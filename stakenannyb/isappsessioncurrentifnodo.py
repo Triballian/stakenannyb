@@ -45,7 +45,9 @@ def isappsessioncurrentifnodo(appdirpath, appdatfile, appdatadirpath):
         print('\tPlease continue in the stakenanny session that is already running,\n$$')
         isappkill=input('\tOr type: [stopother] to continue with this session amd end the previous session. ')
         
-        while isappkill!='stopother':          
+        
+        while isappkill!='stopother':
+            isappkill=input('\ttype: [stopother] to continue with this session amd end the previous session. ')
 
             if isappkill=='stopother':
 
