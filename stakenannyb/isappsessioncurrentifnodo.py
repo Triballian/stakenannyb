@@ -5,7 +5,9 @@ from filemakeifno import filemakeifno
 
 from ast import literal_eval
 from os import getpid, system
+from sys import exit
 from re import search
+
 
 
 def apppid():
@@ -42,8 +44,8 @@ def isappsessioncurrentifnodo(appdirpath, appdatfile, appdatadirpath):
     if not appdatfilecontents['PID']==apppidstr['PID']:
         
         print('\tAnnother stakenanny session is currently running\n')
-        print('\tPlease continue in the stakenanny session that is already running,\n$$')
-        isappkill=input('\tOr type: [stopother] to continue with this session amd end the previous session. ')
+        print('\tPlease continue in the stakenanny session that is already running,\n')
+        isappkill=input('\tOr type: [stopother] to continue with this session amd end the previous session.\n$$ ')
         
         
         while isappkill!='stopother':
@@ -53,7 +55,7 @@ def isappsessioncurrentifnodo(appdirpath, appdatfile, appdatadirpath):
 
                 system('tskill ' + str(appdatfilecontents['PID']))
             elif not isappkill:
-                quit('exit at user request')
+                exit('exit at user request')
             else:
                 print('\tInvalid choice. Please type [stopother] or hit ENTER to quit this session')
         

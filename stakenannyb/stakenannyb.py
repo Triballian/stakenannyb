@@ -121,7 +121,7 @@ def commandquit():
 
 def commandstart():
     print(coinlist[0])
-    setup(appdirpath, appdatfile, appdatadirpath, appdata, snpy, coinlist)
+    setup(appdirpath, appdatfile, appdatadirpath, appdata, snpy, coinlist, exenames)
     # appfilemakeifno()
     
     while True:
