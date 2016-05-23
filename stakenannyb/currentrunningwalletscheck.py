@@ -5,7 +5,10 @@ from os import path, system
 
 
 
+
+
 def listedcoinsrunning(coinlist, exenames):
+
 
     coinpid = {}
     coinsrunning = 0
@@ -15,7 +18,7 @@ def listedcoinsrunning(coinlist, exenames):
         pidstr = None
         
         #pidstr=str(check_output(r'tasklist /fo csv /nh /fi "imagename eq ' + coin + '-qt.exe\"'),'utf-8').split(',')
-        pidstr=str(check_output(r'tasklist /fo csv /nh /fi "imagename eq ' + exenames[coin]),'utf-8').split(',')[1]
+        pidstr=str(check_output(r'tasklist /fo csv /nh /fi "imagename eq ' + exenames[coin]),'utf-8').split(',')
         #pidstr=check_output(r'tasklist /fo csv /nh /fi "imagename eq ' + exenames[coin])
 
         #pidstr=str(check_output(r'tasklist /fo csv /nh /fi "imagename eq ' + exenames[coin]),'utf-8')
@@ -27,9 +30,9 @@ def listedcoinsrunning(coinlist, exenames):
             #    pidstr=str(check_output(r'tasklist /fo csv /nh /fi "imagename eq ' + coin + '-qt.exe\"'),'utf-8').split(',')
             
             coinsrunning+=1
-            coinpid[coin] = pidstr.replace('\"', '')
+            coinpid[coin] = pidstr[1]
             #coinpid[coin] = pidstr[1]
-    return coinpid, coinsrunning
+    return str(coinpid).replace('\"', ''), coinsrunning
      #for line in str(check_output("wmic process list")).replace('\'', '').replace('\"c:', '\n\"c:'):
         #    sfile = sfile + line
             #if coin in line:

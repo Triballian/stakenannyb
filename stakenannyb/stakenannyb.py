@@ -26,7 +26,11 @@ Created on Apr 16, 2016
 
 '''
 import ptvsd
+
 from setup import setup
+from startcoinservers import startcoinservers
+from getexenames import getexenames
+
 from sys import exit, argv
 
 from candiapps.utils import getconf
@@ -37,7 +41,7 @@ from os import path, getenv, mkdir, system
 from re import sub, search
 from ast import literal_eval
 from nt import remove
-from getexenames import getexenames
+
 
 coinssupported =('turbostake',)
 listcommands=('help', 'quit', 'coinssupported', 'coinlist') 
@@ -122,6 +126,7 @@ def commandquit():
 def commandstart():
     print(coinlist[0])
     setup(appdirpath, appdatfile, appdatadirpath, appdata, snpy, coinlist, exenames)
+    startcoinservers(coinlist,exenames,envars)
     # appfilemakeifno()
     
     while True:

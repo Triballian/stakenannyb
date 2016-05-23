@@ -44,6 +44,8 @@ def getconf(name):
     cfile = open(cname + '.conf')
     
     envars = {}
+    cdata = []
+    
 
    
     for line in cfile:
@@ -74,7 +76,11 @@ def getconf(name):
         #alist = cdata[1].strip().split(',')
         #blist = sub(r'\[|\]|\"', '' , str(cdata[1].strip().split(',')))
         #clist = str(cdata[1].strip().split(',')).replace(r'"', '')
-        envars[str(cdata[0].lower())] = cdata[1].strip().split(',')
+        envars[str(cdata[0].lower())] = str(cdata[1].strip().split(','))
+        print(str(envars))
+        
+        
+        
         
         
 
