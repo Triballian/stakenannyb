@@ -1,6 +1,6 @@
 
 from subprocess import check_output
-from ast import literal_eval
+
 from os import path, system
 from re import search
 

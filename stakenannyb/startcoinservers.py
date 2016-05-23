@@ -1,3 +1,6 @@
+from getpass import getpass
+from subprocess import check_output
+
 def getpasswd():
         confirmation = False
         while confirmation == False:
@@ -19,11 +22,11 @@ def getpasswd():
 
 def startservers(coinlist, exenames, envars, password):
     for coin in coinlist:
-        startcmdstr=envars[coin] + exenames[coin] + '-server -daemon -listen -rpcallowip=127.0.0.1 -rpcuser=stakenanny -rpcpassword=' + password
+        startcmdstr=str(envars[coin] + exenames[coin] + '-server -daemon -listen -rpcallowip=127.0.0.1 -rpcuser=stakenanny -rpcpassword=' + password)
         serveroutput=str(check_output( startcmdstr ),'utf-8')
      
 def startcoinservers(coinlist,exenames,envars):
-    password=getpassword()
+    password=getpasswd()
     startservers(coinlist, exenames, envars, password)
     #-server -daemon
     #-rpcuser=stakenanny

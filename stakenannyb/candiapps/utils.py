@@ -76,7 +76,13 @@ def getconf(name):
         #alist = cdata[1].strip().split(',')
         #blist = sub(r'\[|\]|\"', '' , str(cdata[1].strip().split(',')))
         #clist = str(cdata[1].strip().split(',')).replace(r'"', '')
-        envars[str(cdata[0].lower())] = cdata[1].strip().split(',')
+        fdata = cdata[1].strip().split(',')
+        if len(fdata[0]) > 1:
+            if fdata[0][1]==None:
+                envars[str(cdata[0].lower())] = fdata[0]
+                continue
+        envars[str(cdata[0].lower())] = fdata
+           
         print(str(envars))
         
         
