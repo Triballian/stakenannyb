@@ -31,7 +31,7 @@ Created on Apr 16, 2016
 
 '''
 #utils.py python3 
-from re import sub
+from re import sub, search
 #from ast import literal_eval
 
 def getconf(name):
@@ -44,7 +44,7 @@ def getconf(name):
     cfile = open(cname + '.conf')
     
     envars = {}
-    cdata = []
+
     
 
    
@@ -59,7 +59,7 @@ def getconf(name):
         
         #print('this is the line: crline ' + crline)
 
-        if not crline:
+        if not crline or not search('=',crline):
             continue
 
         # check to see if the line has a comment. using regular experssions
@@ -76,7 +76,7 @@ def getconf(name):
         #alist = cdata[1].strip().split(',')
         #blist = sub(r'\[|\]|\"', '' , str(cdata[1].strip().split(',')))
         #clist = str(cdata[1].strip().split(',')).replace(r'"', '')
-        envars[str(cdata[0].lower())] = str(cdata[1].strip().split(','))
+        envars[str(cdata[0].lower())] = cdata[1].strip().split(',')
         print(str(envars))
         
         
