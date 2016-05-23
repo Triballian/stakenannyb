@@ -2,6 +2,7 @@
 from subprocess import check_output
 from ast import literal_eval
 from os import path, system
+from re import search
 
 
 
@@ -15,7 +16,7 @@ def listedcoinsrunning(coinlist, exenames):
 
     for coin in coinlist:
         
-        pidstr = None
+        
         
         #pidstr=str(check_output(r'tasklist /fo csv /nh /fi "imagename eq ' + coin + '-qt.exe\"'),'utf-8').split(',')
         pidstr=str(check_output(r'tasklist /fo csv /nh /fi "imagename eq ' + exenames[coin]),'utf-8').split(',')
@@ -24,15 +25,15 @@ def listedcoinsrunning(coinlist, exenames):
         #pidstr=str(check_output(r'tasklist /fo csv /nh /fi "imagename eq ' + exenames[coin]),'utf-8')
         
         
-        if pidstr:
+        if len(pidstr)>1:
             #if 'INFO: No tasks' in pidstr[1]:
             #    pidstr=None
             #    pidstr=str(check_output(r'tasklist /fo csv /nh /fi "imagename eq ' + coin + '-qt.exe\"'),'utf-8').split(',')
             
             coinsrunning+=1
-            coinpid[coin] = pidstr[1]
+            coinpid[coin] = str(pidstr[1]).replace('\"', '')
             #coinpid[coin] = pidstr[1]
-    return str(coinpid).replace('\"', ''), coinsrunning
+    return coinpid, coinsrunning
      #for line in str(check_output("wmic process list")).replace('\'', '').replace('\"c:', '\n\"c:'):
         #    sfile = sfile + line
             #if coin in line:
@@ -52,16 +53,16 @@ def currentrunningwalletscheck(coinlist, exenames):
         print('\tPlease shutdown these\\this coin[s] and type: [retry]\n')
         iswalletkill=input('\tOr type: [stopwallets] to allow stakenanny to shutdown these\\this listed coin[s].\n$$ ')
         if iswalletkill=='retry':
-                coinspid=None
+                
                 coinspid, numberofrunningcoins=listedcoinsrunning(coinlist, exenames)
         elif iswalletkill=='stopwallets':
             for coin in coinspid:
                 system('tskill ' + coinspid[coin])
-            coinspid=None
+            
             coinspid, numberofrunningcoins=listedcoinsrunning(coinlist, exenames)
             while coinspid:           
                 iswalletkill=input('\tStakenanny was unable to kill these\\this wallet[s], please shut them down manually and type: [retry]\n$$')   
-                coinspid=None
+                
                 coinspid, numberofrunningcoins=listedcoinsrunning(coinlist, exenames)
         else:
             print('Invalid command, please try again.\n\n\n')            
