@@ -22,7 +22,7 @@ def getpasswd():
 
 def startservers(coinlist, exenames, envars, password):
     for coin in coinlist:
-        startcmdstr=str(envars[coin] + exenames[coin] + '-server -daemon -listen -rpcallowip=127.0.0.1 -rpcuser=stakenanny -rpcpassword=' + password)
+        startcmdstr=str(envars[coin][0] + exenames[coin] + '-server -daemon -listen -rpcallowip=127.0.0.1 -rpcuser=stakenanny -rpcpassword=' + password)
         serveroutput=str(check_output( startcmdstr ),'utf-8')
      
 def startcoinservers(coinlist,exenames,envars):
