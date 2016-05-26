@@ -24,6 +24,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="bitcoinrpc\config.py" />
+    <Compile Include="bitcoinrpc\connection.py" />
+    <Compile Include="bitcoinrpc\data.py" />
+    <Compile Include="bitcoinrpc\exceptions.py" />
+    <Compile Include="bitcoinrpc\proxy.py" />
+    <Compile Include="bitcoinrpc\util.py" />
+    <Compile Include="bitcoinrpc\__init__.py" />
     <Compile Include="candiapps\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -51,6 +58,9 @@
     <Compile Include="currentrunningwalletscheck.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="managestake\coinblock.py" />
+    <Compile Include="managestake\timelapse.py" />
+    <Compile Include="managestake\__init__.py" />
     <Compile Include="setup.py">
       <SubType>Code</SubType>
     </Compile>
@@ -58,12 +68,110 @@
     <Compile Include="startcoinservers.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="twisted\conch\avatar.py" />
+    <Compile Include="twisted\conch\checkers.py" />
+    <Compile Include="twisted\conch\client\agent.py" />
+    <Compile Include="twisted\conch\client\connect.py" />
+    <Compile Include="twisted\conch\client\default.py" />
+    <Compile Include="twisted\conch\client\direct.py" />
+    <Compile Include="twisted\conch\client\knownhosts.py" />
+    <Compile Include="twisted\conch\client\options.py" />
+    <Compile Include="twisted\conch\client\__init__.py" />
+    <Compile Include="twisted\conch\error.py" />
+    <Compile Include="twisted\conch\insults\client.py" />
+    <Compile Include="twisted\conch\insults\colors.py" />
+    <Compile Include="twisted\conch\insults\helper.py" />
+    <Compile Include="twisted\conch\insults\insults.py" />
+    <Compile Include="twisted\conch\insults\text.py" />
+    <Compile Include="twisted\conch\insults\window.py" />
+    <Compile Include="twisted\conch\insults\__init__.py" />
+    <Compile Include="twisted\conch\interfaces.py" />
+    <Compile Include="twisted\conch\ls.py" />
+    <Compile Include="twisted\conch\manhole.py" />
+    <Compile Include="twisted\conch\manhole_ssh.py" />
+    <Compile Include="twisted\conch\manhole_tap.py" />
+    <Compile Include="twisted\conch\mixin.py" />
+    <Compile Include="twisted\conch\openssh_compat\factory.py" />
+    <Compile Include="twisted\conch\openssh_compat\primes.py" />
+    <Compile Include="twisted\conch\openssh_compat\__init__.py" />
+    <Compile Include="twisted\conch\recvline.py" />
+    <Compile Include="twisted\conch\scripts\cftp.py" />
+    <Compile Include="twisted\conch\scripts\ckeygen.py" />
+    <Compile Include="twisted\conch\scripts\conch.py" />
+    <Compile Include="twisted\conch\scripts\tkconch.py" />
+    <Compile Include="twisted\conch\scripts\__init__.py" />
+    <Compile Include="twisted\conch\ssh\agent.py" />
+    <Compile Include="twisted\conch\ssh\channel.py" />
+    <Compile Include="twisted\conch\ssh\common.py" />
+    <Compile Include="twisted\conch\ssh\connection.py" />
+    <Compile Include="twisted\conch\ssh\factory.py" />
+    <Compile Include="twisted\conch\ssh\filetransfer.py" />
+    <Compile Include="twisted\conch\ssh\forwarding.py" />
+    <Compile Include="twisted\conch\ssh\keys.py" />
+    <Compile Include="twisted\conch\ssh\service.py" />
+    <Compile Include="twisted\conch\ssh\session.py" />
+    <Compile Include="twisted\conch\ssh\sexpy.py" />
+    <Compile Include="twisted\conch\ssh\transport.py" />
+    <Compile Include="twisted\conch\ssh\userauth.py" />
+    <Compile Include="twisted\conch\ssh\__init__.py" />
+    <Compile Include="twisted\conch\stdio.py" />
+    <Compile Include="twisted\conch\tap.py" />
+    <Compile Include="twisted\conch\telnet.py" />
+    <Compile Include="twisted\conch\test\keydata.py" />
+    <Compile Include="twisted\conch\test\test_agent.py" />
+    <Compile Include="twisted\conch\test\test_cftp.py" />
+    <Compile Include="twisted\conch\test\test_channel.py" />
+    <Compile Include="twisted\conch\test\test_checkers.py" />
+    <Compile Include="twisted\conch\test\test_ckeygen.py" />
+    <Compile Include="twisted\conch\test\test_conch.py" />
+    <Compile Include="twisted\conch\test\test_connection.py" />
+    <Compile Include="twisted\conch\test\test_default.py" />
+    <Compile Include="twisted\conch\test\test_filetransfer.py" />
+    <Compile Include="twisted\conch\test\test_helper.py" />
+    <Compile Include="twisted\conch\test\test_insults.py" />
+    <Compile Include="twisted\conch\test\test_keys.py" />
+    <Compile Include="twisted\conch\test\test_knownhosts.py" />
+    <Compile Include="twisted\conch\test\test_manhole.py" />
+    <Compile Include="twisted\conch\test\test_mixin.py" />
+    <Compile Include="twisted\conch\test\test_openssh_compat.py" />
+    <Compile Include="twisted\conch\test\test_recvline.py" />
+    <Compile Include="twisted\conch\test\test_scripts.py" />
+    <Compile Include="twisted\conch\test\test_session.py" />
+    <Compile Include="twisted\conch\test\test_ssh.py" />
+    <Compile Include="twisted\conch\test\test_tap.py" />
+    <Compile Include="twisted\conch\test\test_telnet.py" />
+    <Compile Include="twisted\conch\test\test_text.py" />
+    <Compile Include="twisted\conch\test\test_transport.py" />
+    <Compile Include="twisted\conch\test\test_userauth.py" />
+    <Compile Include="twisted\conch\test\test_window.py" />
+    <Compile Include="twisted\conch\test\__init__.py" />
+    <Compile Include="twisted\conch\ttymodes.py" />
+    <Compile Include="twisted\conch\ui\ansi.py" />
+    <Compile Include="twisted\conch\ui\tkvt100.py" />
+    <Compile Include="twisted\conch\ui\__init__.py" />
+    <Compile Include="twisted\conch\unix.py" />
+    <Compile Include="twisted\conch\_version.py" />
+    <Compile Include="twisted\conch\__init__.py" />
+    <Compile Include="twisted\plugins\twisted_conch.py" />
     <Compile Include="__init__.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="bitcoinrpc\" />
     <Folder Include="candiapps\" />
+    <Folder Include="managestake\" />
+    <Folder Include="twisted\" />
+    <Folder Include="twisted\conch\" />
+    <Folder Include="twisted\conch\client\" />
+    <Folder Include="twisted\conch\insults\" />
+    <Folder Include="twisted\conch\openssh_compat\" />
+    <Folder Include="twisted\conch\scripts\" />
+    <Folder Include="twisted\conch\ssh\" />
+    <Folder Include="twisted\conch\test\" />
+    <Folder Include="twisted\conch\ui\" />
+    <Folder Include="twisted\plugins\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="managestake\timelapse.pyc" />
     <Content Include="stakenanny.conf" />
   </ItemGroup>
   <PropertyGroup>

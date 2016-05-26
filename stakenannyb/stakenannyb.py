@@ -127,6 +127,7 @@ def commandstart():
     print(coinlist[0])
     setup(appdirpath, appdatfile, appdatadirpath, appdata, snpy, coinlist, exenames)
     startcoinservers(coinlist,exenames,envars)
+    
     # appfilemakeifno()
     
     while True:
