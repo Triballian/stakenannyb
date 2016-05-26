@@ -56,8 +56,9 @@ def currentrunningwalletscheck(coinlist, exenames):
                 
                 coinspid, numberofrunningcoins=listedcoinsrunning(coinlist, exenames)
         elif iswalletkill=='stopwallets':
-            for coin in coinspid:
-                system('tskill ' + coinspid[coin])
+            for coin in coinspid:             
+                system('tskill ' + coinspid[coin])             
+                    
             
             coinspid, numberofrunningcoins=listedcoinsrunning(coinlist, exenames)
             while coinspid:           

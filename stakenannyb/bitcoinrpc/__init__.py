@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-bitcoin-python - Easy-to-use Bitcoin API client
+bitcoin-python3 - Easy-to-use Bitcoin API client
 """
 
 
@@ -38,11 +38,10 @@ def connect_to_local(filename=None, rpcuser=None, rpcpassword=None):
     cfg = read_default_config(filename)
     if cfg is None:
         cfg = {}
-    
     port = int(cfg.get('rpcport', '18332' if cfg.get('testnet') else '8332'))
     if not rpcuser:
         rpcuser = cfg.get('rpcuser', '')
-    if not rpcpassword:
+    if not rpcpassword:    
         rpcpassword = cfg.get('rpcpassword', '')
 
     return BitcoinConnection(rpcuser, rpcpassword, 'localhost', port)

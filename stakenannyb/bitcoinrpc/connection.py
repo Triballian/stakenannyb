@@ -33,6 +33,8 @@ class BitcoinConnection(object):
     A BitcoinConnection object defines a connection to a bitcoin server.
     It is a thin wrapper around a JSON-RPC API connection.
 
+    Up-to-date for SVN revision 198.
+
     Arguments to constructor:
 
     - *user* -- Authenticate as user.
@@ -202,7 +204,7 @@ class BitcoinConnection(object):
         Arguments:
 
         - *bitcoinaddress* -- Bitcoin address to send to.
-        - *amount* -- Amount to send (float, rounded to the nearest 0.00000001).
+        - *amount* -- Amount to send (float, rounded to the nearest 0.01).
         - *minconf* -- Minimum number of confirmations required for transferred balance.
         - *comment* -- Comment for transaction.
         - *comment_to* -- Comment for to-address.
@@ -367,7 +369,7 @@ class BitcoinConnection(object):
         if as_dict:
             return dict(self.proxy.listaccounts(minconf))
         else:
-            return self.proxy.listaccounts(minconf).keys()
+            return list(self.proxy.listaccounts(minconf).keys())
 
     def listreceivedbyaccount(self, minconf=1, includeempty=False):
         """
@@ -398,7 +400,7 @@ class BitcoinConnection(object):
         - *from_* -- Skip the first <from_> transactions.
         - *address* -- Receive address to consider
         """
-        accounts = [account] if account is not None else self.listaccounts(as_dict=True).keys()
+        accounts = [account] if account is not None else iter(self.listaccounts(as_dict=True).keys())
         return [TransactionInfo(**tx) for acc in accounts for
                 tx in self.proxy.listtransactions(acc, count, from_) if
                 address is None or tx["address"] == address]
