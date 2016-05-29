@@ -63,8 +63,10 @@ def startcoinservers(coinlist,exenames,envars):
     #conn = bitcoinrpc.connect_to_local(filename='C:\\Users\\Noe\\AppData\\Roaming\\TurboStake\\turbostake.conf', rpcuser='stakenanny', rpcpassword=password)
     #conn = bitcoinrpc.connect_to_local(filename='C:\\Users\\Noe\\AppData\\Roaming\\TurboStake\\turbostake.conf')
     rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:8454"%('stakenanny', password))
-    best_block_hash = rpc_connection.getbestblockhash()
-    print(rpc_connection.getblock(best_block_hash))
+    #best_block_hash = rpc_connection.getbestblockhash()
+    #print(rpc_connection.getblock(best_block_hash))
+    #best_block_hash = rpc_connection.getinfo()
+    print(rpc_connection.getinfo())
 
     #info = conn.getinfo()
     #print(info)
