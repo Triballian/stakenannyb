@@ -58,6 +58,7 @@ def startcoinservers(coinlist,exenames,envars):
     from managestake import timelapse
     from bitcoinrpc.exceptions import InsufficientFunds
     conn = bitcoinrpc.connect_to_local(filename='C:\\Users\\Noe\\AppData\\Roaming\\TurboStake\\turbostake.conf', rpcuser='stakenanny', rpcpassword=password)
+    #conn = bitcoinrpc.connect_to_local(filename='C:\\Users\\Noe\\AppData\\Roaming\\TurboStake\\turbostake.conf')
     info = conn.getinfo()
     print(info)
     #blkage = timelapse.BlockAge(1446916630)
