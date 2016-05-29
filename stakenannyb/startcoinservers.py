@@ -41,6 +41,7 @@ def startservers(coinlist, exenames, envars, password):
 def startcoinservers(coinlist,exenames,envars):
     password=getpasswd()
     startservers(coinlist, exenames, envars, password)
+    continuekey=input('press any key to continue:')
     #-server -daemon
     #-rpcuser=stakenanny
     #rpcallowip=127.0.0.1
@@ -53,14 +54,20 @@ def startcoinservers(coinlist,exenames,envars):
     @author: Noe
     '''
 
-    import bitcoinrpc
+    
+    from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
     
     from managestake import timelapse
     from bitcoinrpc.exceptions import InsufficientFunds
-    conn = bitcoinrpc.connect_to_local(filename='C:\\Users\\Noe\\AppData\\Roaming\\TurboStake\\turbostake.conf', rpcuser='stakenanny', rpcpassword=password)
+    
+    #conn = bitcoinrpc.connect_to_local(filename='C:\\Users\\Noe\\AppData\\Roaming\\TurboStake\\turbostake.conf', rpcuser='stakenanny', rpcpassword=password)
     #conn = bitcoinrpc.connect_to_local(filename='C:\\Users\\Noe\\AppData\\Roaming\\TurboStake\\turbostake.conf')
-    info = conn.getinfo()
-    print(info)
+    rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:8332"%('stakenanny', password))
+    best_block_hash = rpc_connection.getbestblockhash()
+    print(rpc_connection.getblock(best_block_hash))
+
+    #info = conn.getinfo()
+    #print(info)
     #blkage = timelapse.BlockAge(1446916630)
     #print(str(blkage.age()))
 

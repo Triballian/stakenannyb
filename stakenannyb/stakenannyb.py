@@ -43,6 +43,7 @@ from ast import literal_eval
 from nt import remove
 
 
+
 coinssupported =('turbostake',)
 listcommands=('help', 'quit', 'coinssupported', 'coinlist') 
 envars = getconf('stakenanny')

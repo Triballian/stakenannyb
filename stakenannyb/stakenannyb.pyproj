@@ -24,6 +24,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="bitcoinrpc\authproxy.py" />
     <Compile Include="bitcoinrpc\config.py" />
     <Compile Include="bitcoinrpc\connection.py" />
     <Compile Include="bitcoinrpc\data.py" />
