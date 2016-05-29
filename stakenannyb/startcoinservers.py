@@ -3,6 +3,8 @@ from getpass import getpass
 #from subprocess import check_output, STDOUT, TimeoutExpired
 #from subprocess import call
 from subprocess import Popen
+from re import search
+from sys import exit
 
 
 
@@ -29,7 +31,7 @@ def startservers(coinlist, exenames, envars, password):
     coinsp ={}
     for coin in coinlist:
         seconds = 30
-        startcmdstr=str(envars[coin][0] + '\\' + exenames[coin] + ' -server -daemon -listen -rpcallowip=127.0.0.1 -rpcuser=stakenanny -rpcpassword=' + password)
+        startcmdstr=str(envars[coin][0] + '\\' + exenames[coin] + ' -server -listen -rpcallowip=127.0.0.1 -rpcuser=stakenanny -rpcpassword=' + password)
         #startcmdstr=str(envars[coin][0] + '\\' + exenames[coin] + ' -daemon -listen -rpcallowip=127.0.0.1 -rpcuser=stakenanny -rpcpassword=' + password)
         #serveroutput=call( startcmdstr )
         coinsp[coin]=Popen( startcmdstr )
@@ -41,7 +43,7 @@ def startservers(coinlist, exenames, envars, password):
 def startcoinservers(coinlist,exenames,envars):
     password=getpasswd()
     startservers(coinlist, exenames, envars, password)
-    continuekey=input('press any key to continue:')
+    #continuekey=input('press any key to continue:')
     #-server -daemon
     #-rpcuser=stakenanny
     #rpcallowip=127.0.0.1
@@ -66,7 +68,21 @@ def startcoinservers(coinlist,exenames,envars):
     #best_block_hash = rpc_connection.getbestblockhash()
     #print(rpc_connection.getblock(best_block_hash))
     #best_block_hash = rpc_connection.getinfo()
-    print(rpc_connection.getinfo())
+    
+    try:
+        print(rpc_connection.getinfo())
+    except Exception as e:
+        if search(r'^\[WinError 10061\]',str(e)):
+            pass
+        else:
+            exit(e)
+         #print(e.error.values)
+    else:
+        pass   
+       
+
+    #Checking the wallet status every halfsecond would be reasonable
+    #the connectino error happens at the print line
 
     #info = conn.getinfo()
     #print(info)
