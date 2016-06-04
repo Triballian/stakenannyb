@@ -5,6 +5,7 @@ from getpass import getpass
 from subprocess import Popen
 from re import search
 from sys import exit
+from time import sleep
 
 
 
@@ -39,11 +40,36 @@ def startservers(coinlist, exenames, envars, password):
         #    serveroutput=str(check_output( startcmdstr, timeout=seconds ),'utf-8')
         #except TimeoutExpired:
         #    pass
-     
-def startcoinservers(coinlist,exenames,envars):
+  
+def wait_for_wallet_to_finish_loading(rpc_connection, startupstatcheckfreqscnds):
+    walletisstillloading='yes'
+    sendcount=0
+    while walletisstillloading:
+        sendcount += 1
+        try:
+            rpc_connection.getinfo()
+            walletisstillloading=None
+        except Exception as e:
+            walletisstillloading=search(r'^\[WinError 10061\]', str(e))
+            requestsent=search(r'^Request-sent', str(e))
+            if walletisstillloading:
+                sleep(startupstatcheckfreqscnds)
+            elif requestsent:
+                walletisstillloading=None
+            else:
+                print('exit 1')
+                exit(e)
+             #print(e.error.values)
+        else:
+            walletisstillloading=None
+            
+    
+    
+   
+def startcoinservers(coinlist, exenames ,envars, startupstatcheckfreqscnds):
     password=getpasswd()
     startservers(coinlist, exenames, envars, password)
-    #continuekey=input('press any key to continue:')
+    #continuekey=input('press a key to continue:')
     #-server -daemon
     #-rpcuser=stakenanny
     #rpcallowip=127.0.0.1
@@ -68,17 +94,10 @@ def startcoinservers(coinlist,exenames,envars):
     #best_block_hash = rpc_connection.getbestblockhash()
     #print(rpc_connection.getblock(best_block_hash))
     #best_block_hash = rpc_connection.getinfo()
+    wait_for_wallet_to_finish_loading(rpc_connection, startupstatcheckfreqscnds)
     
-    try:
-        print(rpc_connection.getinfo())
-    except Exception as e:
-        if search(r'^\[WinError 10061\]',str(e)):
-            pass
-        else:
-            exit(e)
-         #print(e.error.values)
-    else:
-        pass   
+    
+   
        
 
     #Checking the wallet status every halfsecond would be reasonable

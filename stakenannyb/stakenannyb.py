@@ -57,8 +57,10 @@ appdirpath = sub(r'[C|c]:|/$', '', appdata) + '/stakenanny'
 appdatadirpath = appdirpath + '/data'
 appdatfile = appdatadirpath + '/session.dat'
 snpy = 'stakenannyb.py'
+startupstatcheckfreqscnds=.5
 #coinlist = envars['coinlist'].split(',')
 #coinlist = str(set(envars['coinlist'])).split()
+
 
 coinlist = []
 for coin in set(envars['coinlist']):
@@ -127,7 +129,7 @@ def commandquit():
 def commandstart():
     print(coinlist[0])
     setup(appdirpath, appdatfile, appdatadirpath, appdata, snpy, coinlist, exenames)
-    startcoinservers(coinlist,exenames,envars)
+    startcoinservers(coinlist, exenames, envars, startupstatcheckfreqscnds)
     
     # appfilemakeifno()
     
