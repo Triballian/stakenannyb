@@ -65,7 +65,7 @@ startupstatcheckfreqscnds=.5
 
 coinlist = []
 for coin in set(envars['coinlist']):
-    coinlist.append(coin)
+    coinlist.append(str(coin).lower())
 exenames=getexenames(coinlist, envars)
 
 
