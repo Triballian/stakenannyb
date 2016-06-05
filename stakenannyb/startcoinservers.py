@@ -38,7 +38,7 @@ def getpasswd():
 def starteachserver(coinlist, exenames, envars, password, appdata, startupstatcheckfreqscnds, rpcports):
     coinsp ={}
     cfgs={}
-    
+    conns={}
     for coin in coinlist:
         seconds = 30
         startcmdstr=str(envars[coin][0] + '\\' + exenames[coin] + ' -server -listen -rpcallowip=127.0.0.1 -rpcuser=stakenanny -rpcpassword=' + password)
@@ -68,7 +68,7 @@ def starteachserver(coinlist, exenames, envars, password, appdata, startupstatch
         #else:
         #    conns[coin] = AuthServiceProxy("http://%s:%s@127.0.0.1:%s"%('stakenanny', password, rpcports[coin]))
         
-        conns={}
+        
         wallet_finished_loading = False
         
         while not wallet_finished_loading:
