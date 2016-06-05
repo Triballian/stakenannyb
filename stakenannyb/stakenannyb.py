@@ -118,6 +118,14 @@ def commandquit():
     remove(appdatfile)        
     exit(msgexitu)
 
+def commandgetsynctime(coin, conns):
+    pass
+    
+    #return the last time in seconds that the wallet has synced
+    
+
+
+
 #coinlist = getlist((envars['coinlist'],))
 #coinlist = getlist((envars['coinlist'] + ('tek',)))
 #coinlist = getlist(map(set,envars['coinlist']))
@@ -130,15 +138,15 @@ def commandquit():
 def commandstart():
     print(coinlist[0])
     setup(appdirpath, appdatfile, appdatadirpath, appdata, snpy, coinlist, exenames)
-    startcoinservers(coinlist, exenames, envars, startupstatcheckfreqscnds, appdata, rpcports)
+    conns = startcoinservers(coinlist, exenames, envars, startupstatcheckfreqscnds, appdata, rpcports)
     
     # appfilemakeifno()
     
     while True:
-        uinput = input('$$')
+        uinput = str(input('$$')).split()
         
-        if uinput in listcommands:
-            globals()[str('command' + uinput.lower())]()
+        if uinput[0] in listcommands:
+            globals()[str('command' + uinput[0].lower())]()
         else:
             print('\"' + uinput + '\"' + ', is not a valid command. Type help for a list of available commands.')
 #check to see if the app has already been stared in this windows session

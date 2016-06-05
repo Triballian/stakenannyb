@@ -38,6 +38,7 @@ def getpasswd():
 def starteachserver(coinlist, exenames, envars, password, appdata, startupstatcheckfreqscnds, rpcports):
     coinsp ={}
     cfgs={}
+    
     for coin in coinlist:
         seconds = 30
         startcmdstr=str(envars[coin][0] + '\\' + exenames[coin] + ' -server -listen -rpcallowip=127.0.0.1 -rpcuser=stakenanny -rpcpassword=' + password)
@@ -53,21 +54,37 @@ def starteachserver(coinlist, exenames, envars, password, appdata, startupstatch
         if path.exists(cfgfname):
             cfg=read_config_file(cfgfname)
             cfgs[coin]=cfg
-            
             if 'rpcport' in cfg:
-                rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:%s"%('stakenanny', password, cfg['rpcport']))
+                rpcport = cfg['rpcport']
             else:
-                rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:%s"%('stakenanny', password, rpcports[coin]))
+                rpcport = rpcports[coin]
         else:
-            rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:%s"%('stakenanny', password, rpcports[coin]))
+            rpcport = rpcports[coin]
+            
+        #    if 'rpcport' in cfg:
+        #        conns[coin] = AuthServiceProxy("http://%s:%s@127.0.0.1:%s"%('stakenanny', password, cfg['rpcport']))
+        #    else:
+        #        conns[coin] = AuthServiceProxy("http://%s:%s@127.0.0.1:%s"%('stakenanny', password, rpcports[coin]))
+        #else:
+        #    conns[coin] = AuthServiceProxy("http://%s:%s@127.0.0.1:%s"%('stakenanny', password, rpcports[coin]))
         
+        conns={}
+        wallet_finished_loading = False
         
-        wait_for_wallet_to_finish_loading(rpc_connection, startupstatcheckfreqscnds)
-    return cfgs
+        while not wallet_finished_loading:
+            #conns[coin] = AuthServiceProxy("http://%s:%s@127.0.0.1:%s"%('stakenanny', password, rpcport))
+            conns[coin] = AuthServiceProxy("http://%s:%s@127.0.0.1:%s"%('stakenanny', password, rpcport))            
+            status = wait_for_wallet_to_finish_loading(conns[coin], startupstatcheckfreqscnds)
+            if status != 'Request-sent':
+                wallet_finished_loading = True
+            
+            
+    return cfgs, conns
         
   
 def wait_for_wallet_to_finish_loading(rpc_connection, startupstatcheckfreqscnds):
     walletisstillloading='yes'
+    status = None
     sendcount=0
     while walletisstillloading:
         sendcount += 1
@@ -80,6 +97,7 @@ def wait_for_wallet_to_finish_loading(rpc_connection, startupstatcheckfreqscnds)
             if walletisstillloading:
                 sleep(startupstatcheckfreqscnds)
             elif requestsent:
+                status=requestsent.group(0)
                 walletisstillloading=None
             else:
                 print('exit 1')
@@ -87,13 +105,15 @@ def wait_for_wallet_to_finish_loading(rpc_connection, startupstatcheckfreqscnds)
              #print(e.error.values)
         else:
             walletisstillloading=None
+    return status
             
     
     
    
 def startcoinservers(coinlist, exenames ,envars, startupstatcheckfreqscnds, appdata, rpcports):
     password=getpasswd()
-    cfgs=starteachserver(coinlist, exenames, envars, password, appdata, startupstatcheckfreqscnds, rpcports)
+    cfgs, conns=starteachserver(coinlist, exenames, envars, password, appdata, startupstatcheckfreqscnds, rpcports)
+    return conns
     #continuekey=input('press a key to continue:')
     #-server -daemon
     #-rpcuser=stakenanny
