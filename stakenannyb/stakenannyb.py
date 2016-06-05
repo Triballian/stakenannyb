@@ -41,12 +41,16 @@ from os import path, getenv, mkdir, system
 from re import sub, search
 from ast import literal_eval
 from nt import remove
+from time import time
+import datetime
+import calendar
 
 
 
 coinssupported =('turbostake',)
-rpcports = {'turbocoin': '8454', 'truckcoin': '18776'}
-listcommands=('help', 'quit', 'coinssupported', 'coinlist') 
+rpcports = {'turbostake': '8454', 'truckcoin': '18776'}
+listcommands=('help', 'quit', 'coinssupported', 'coinlist', 'getsynctime')
+paramslist={} 
 envars = getconf('stakenanny')
 
 
@@ -59,6 +63,7 @@ appdatadirpath = appdirpath + '\\data'
 appdatfile = appdatadirpath + '\\session.dat'
 snpy = 'stakenannyb.py'
 startupstatcheckfreqscnds=.5
+
 #coinlist = envars['coinlist'].split(',')
 #coinlist = str(set(envars['coinlist'])).split()
 
@@ -118,8 +123,24 @@ def commandquit():
     remove(appdatfile)        
     exit(msgexitu)
 
-def commandgetsynctime(coin, conns):
-    pass
+def commandgetsynctime(coin, conn):
+    
+    blockcount = conn[coin].getblockcount()
+    blockhash = conn[coin].getblockhash(blockcount)
+    block = conn[coin].getblock(blockhash)
+    
+    crnttime = time()
+    if not isinstance( block['time'], int ):
+        date_text = block['time'].replace(' UTC', '')
+        date = datetime.datetime.strptime(date_text, "%Y-%m-%d %H:%M:%S")
+        blocktime = calendar.timegm(date.utctimetuple())
+    else:
+        blocktime = block['time']
+    synctime = crnttime - blocktime
+    m, s = divmod(synctime, 60)
+    h, m = divmod(m, 60)
+    return print("%d:%02d:%02d" % (h, m, s))
+
     
     #return the last time in seconds that the wallet has synced
     
@@ -139,16 +160,32 @@ def commandstart():
     print(coinlist[0])
     setup(appdirpath, appdatfile, appdatadirpath, appdata, snpy, coinlist, exenames)
     conns = startcoinservers(coinlist, exenames, envars, startupstatcheckfreqscnds, appdata, rpcports)
+    paramslist['getsynctime'] = conns
+    
+        
     
     # appfilemakeifno()
     
     while True:
         uinput = str(input('$$')).split()
-        
-        if uinput[0] in listcommands:
-            globals()[str('command' + uinput[0].lower())]()
+        if len(uinput) > 0:
+            if uinput[0].lower() in listcommands:
+                if len(uinput) > 1:
+                    if uinput[0].lower() in paramslist:
+                        globals()[str('command' + uinput[0].lower())](uinput[1].lower(), paramslist[uinput[0]])
+                        #globals()[str('command' + uinput[0].lower())](uinput[1].lower())
+                    else:
+                        print('\"' + uinput[1] + '\"' + ', is not a valid parameter. Type help for a list of available commands and parameters wrapped with bracket example: getsynctime [coin] is typed:/ngetsynctime turbostake')
+                        
+                else:
+                    globals()[str('command' + uinput[0].lower())]()               
+            
+            else:
+                print('\"' + uinput[0] + '\"' + ', is not a valid command. Type help for a list of available commands.')
         else:
-            print('\"' + uinput + '\"' + ', is not a valid command. Type help for a list of available commands.')
+            print('invalid command. Type help for a list of available commands.')
+            
+    
 #check to see if the app has already been stared in this windows session
         
 
