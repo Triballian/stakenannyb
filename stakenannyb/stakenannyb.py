@@ -45,6 +45,7 @@ from nt import remove
 
 
 coinssupported =('turbostake',)
+rpcports = {'turbocoin': '8454', 'truckcoin': '18776'}
 listcommands=('help', 'quit', 'coinssupported', 'coinlist') 
 envars = getconf('stakenanny')
 
@@ -52,10 +53,10 @@ envars = getconf('stakenanny')
     
 msgexitu = 'Exited at user request!'
 
-appdata = getenv('appdata').replace('\\', '/')
-appdirpath = sub(r'[C|c]:|/$', '', appdata) + '/stakenanny'
-appdatadirpath = appdirpath + '/data'
-appdatfile = appdatadirpath + '/session.dat'
+appdata = getenv('appdata')
+appdirpath = sub(r'[C|c]:|/$', '', appdata) + '\\stakenanny'
+appdatadirpath = appdirpath + '\\data'
+appdatfile = appdatadirpath + '\\session.dat'
 snpy = 'stakenannyb.py'
 startupstatcheckfreqscnds=.5
 #coinlist = envars['coinlist'].split(',')
@@ -129,7 +130,7 @@ def commandquit():
 def commandstart():
     print(coinlist[0])
     setup(appdirpath, appdatfile, appdatadirpath, appdata, snpy, coinlist, exenames)
-    startcoinservers(coinlist, exenames, envars, startupstatcheckfreqscnds)
+    startcoinservers(coinlist, exenames, envars, startupstatcheckfreqscnds, appdata, rpcports)
     
     # appfilemakeifno()
     

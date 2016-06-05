@@ -25,6 +25,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="bitcoinrpc\authproxy.py" />
+    <Compile Include="bitcoinrpc\config.py" />
     <Compile Include="bitcoinrpc\__init__.py" />
     <Compile Include="candiapps\__init__.py">
       <SubType>Code</SubType>

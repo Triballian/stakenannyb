@@ -5,7 +5,14 @@ from getpass import getpass
 from subprocess import Popen
 from re import search
 from sys import exit
+from os import path
 from time import sleep
+from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
+    
+from managestake import timelapse
+#from bitcoinrpc.exceptions import InsufficientFunds
+from bitcoinrpc.config import read_config_file
+
 
 
 
@@ -28,8 +35,9 @@ def getpasswd():
                 print("Passwords did not match. Please try again.")
         return p1
 
-def startservers(coinlist, exenames, envars, password):
+def starteachserver(coinlist, exenames, envars, password, appdata, startupstatcheckfreqscnds, rpcports):
     coinsp ={}
+    cfgs={}
     for coin in coinlist:
         seconds = 30
         startcmdstr=str(envars[coin][0] + '\\' + exenames[coin] + ' -server -listen -rpcallowip=127.0.0.1 -rpcuser=stakenanny -rpcpassword=' + password)
@@ -40,6 +48,23 @@ def startservers(coinlist, exenames, envars, password):
         #    serveroutput=str(check_output( startcmdstr, timeout=seconds ),'utf-8')
         #except TimeoutExpired:
         #    pass
+        #return cfg for each coin
+        cfgfname=appdata + '\\' + coin + '\\' + coin + r'.conf'
+        if path.exists(cfgfname):
+            cfg=read_config_file(cfgfname)
+            cfgs[coin]=cfg
+            
+            if 'rpcport' in cfg:
+                rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:%s"%('stakenanny', password, cfg['rpcport']))
+            else:
+                rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:%s"%('stakenanny', password, rpcports[coin]))
+        else:
+            rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:%s"%('stakenanny', password, rpcports[coin]))
+        
+        
+        wait_for_wallet_to_finish_loading(rpc_connection, startupstatcheckfreqscnds)
+    return cfgs
+        
   
 def wait_for_wallet_to_finish_loading(rpc_connection, startupstatcheckfreqscnds):
     walletisstillloading='yes'
@@ -66,9 +91,9 @@ def wait_for_wallet_to_finish_loading(rpc_connection, startupstatcheckfreqscnds)
     
     
    
-def startcoinservers(coinlist, exenames ,envars, startupstatcheckfreqscnds):
+def startcoinservers(coinlist, exenames ,envars, startupstatcheckfreqscnds, appdata, rpcports):
     password=getpasswd()
-    startservers(coinlist, exenames, envars, password)
+    cfgs=starteachserver(coinlist, exenames, envars, password, appdata, startupstatcheckfreqscnds, rpcports)
     #continuekey=input('press a key to continue:')
     #-server -daemon
     #-rpcuser=stakenanny
@@ -76,25 +101,19 @@ def startcoinservers(coinlist, exenames ,envars, startupstatcheckfreqscnds):
     #listen=1
     #-server
     #-daemon=1
-    '''
-    Created on Nov 7, 2015
-
-    @author: Noe
-    '''
+   
 
     
-    from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
     
-    from managestake import timelapse
-    from bitcoinrpc.exceptions import InsufficientFunds
     
     #conn = bitcoinrpc.connect_to_local(filename='C:\\Users\\Noe\\AppData\\Roaming\\TurboStake\\turbostake.conf', rpcuser='stakenanny', rpcpassword=password)
     #conn = bitcoinrpc.connect_to_local(filename='C:\\Users\\Noe\\AppData\\Roaming\\TurboStake\\turbostake.conf')
-    rpc_connection = AuthServiceProxy("http://%s:%s@127.0.0.1:8454"%('stakenanny', password))
+    
     #best_block_hash = rpc_connection.getbestblockhash()
     #print(rpc_connection.getblock(best_block_hash))
     #best_block_hash = rpc_connection.getinfo()
-    wait_for_wallet_to_finish_loading(rpc_connection, startupstatcheckfreqscnds)
+    
+    
     
     
    
