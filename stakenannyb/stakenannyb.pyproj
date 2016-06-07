@@ -57,11 +57,17 @@
     <Compile Include="managestake\coinblock.py" />
     <Compile Include="managestake\timelapse.py" />
     <Compile Include="managestake\__init__.py" />
+    <Compile Include="serializer.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="setup.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="stakenannyb.py" />
     <Compile Include="startcoinservers.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="User.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="__init__.py" />

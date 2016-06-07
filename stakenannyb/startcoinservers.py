@@ -12,6 +12,8 @@ from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
 from managestake import timelapse
 #from bitcoinrpc.exceptions import InsufficientFunds
 from bitcoinrpc.config import read_config_file
+from User import User
+from serializer import serialize, deserialize
 
 
 
@@ -40,6 +42,7 @@ def starteachserver(coinlist, exenames, envars, password, appdata, startupstatch
     cfgs={}
     conns={}
     for coin in coinlist:
+        print(coin)
         seconds = 30
         startcmdstr=str(envars[coin][0] + '\\' + exenames[coin] + ' -server -listen -rpcallowip=127.0.0.1 -rpcuser=stakenanny -rpcpassword=' + password)
         #startcmdstr=str(envars[coin][0] + '\\' + exenames[coin] + ' -daemon -listen -rpcallowip=127.0.0.1 -rpcuser=stakenanny -rpcpassword=' + password)
@@ -78,7 +81,16 @@ def starteachserver(coinlist, exenames, envars, password, appdata, startupstatch
             if status != 'Request-sent':
                 wallet_finished_loading = True
             
-            
+        try:
+            conns[coin].walletpassphrase(password, 99999999, True)
+        except Exception as e:
+            timedouterror=search(r'^timed out', str(e))
+            if timedouterror:
+                pass
+            else:
+                print('exit 1')
+                exit(e)
+    #conns[coin].wallet        
     return cfgs, conns
         
   
@@ -110,9 +122,18 @@ def wait_for_wallet_to_finish_loading(rpc_connection, startupstatcheckfreqscnds)
     
     
    
-def startcoinservers(coinlist, exenames ,envars, startupstatcheckfreqscnds, appdata, rpcports):
-    password=getpasswd()
-    cfgs, conns=starteachserver(coinlist, exenames, envars, password, appdata, startupstatcheckfreqscnds, rpcports)
+def startcoinservers(coinlist, exenames , envars, startupstatcheckfreqscnds, appdata, rpcports):
+    userfile = appdata + '\\' + 'stakenanny' + '\\' + 'user.sav'
+    if path.exists(userfile):
+        user = deserialize(userfile )
+    else:
+        user = User()   
+        user.set_pwd(getpasswd())
+        serialize(user, userfile)
+    
+    
+    cfgs, conns=starteachserver(coinlist, exenames, envars, user.get_pwd(), appdata, startupstatcheckfreqscnds, rpcports)
+
     return conns
     #continuekey=input('press a key to continue:')
     #-server -daemon

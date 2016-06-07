@@ -48,7 +48,7 @@ import calendar
 
 
 coinssupported =('turbostake',)
-rpcports = {'turbostake': '8454', 'truckcoin': '18776'}
+rpcports = {'turbostake': '8454', 'truckcoin': '18776', 'paycon': '9456', 'tekcoin': '18514', 'bottlecaps': '8385', 'stronghands': '6902', 'hyperstake': '18777', '1337': '13372', 'sprouts': '4320', 'pulse': '29996'}
 listcommands=('help', 'quit', 'coinssupported', 'coinlist', 'getsynctime')
 paramslist={} 
 envars = getconf('stakenanny')
@@ -62,7 +62,7 @@ appdirpath = sub(r'[C|c]:|/$', '', appdata) + '\\stakenanny'
 appdatadirpath = appdirpath + '\\data'
 appdatfile = appdatadirpath + '\\session.dat'
 snpy = 'stakenannyb.py'
-startupstatcheckfreqscnds=.5
+startupstatcheckfreqscnds=1
 
 #coinlist = envars['coinlist'].split(',')
 #coinlist = str(set(envars['coinlist'])).split()
@@ -139,7 +139,7 @@ def commandgetsynctime(coin, conn):
     synctime = crnttime - blocktime
     m, s = divmod(synctime, 60)
     h, m = divmod(m, 60)
-    return print("%d:%02d:%02d" % (h, m, s))
+    return synctime, print("%d:%02d:%02d" % (h, m, s))
 
     
     #return the last time in seconds that the wallet has synced

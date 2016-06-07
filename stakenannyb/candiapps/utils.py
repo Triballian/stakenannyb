@@ -64,9 +64,9 @@ def getconf(name):
 
         # check to see if the line has a comment. using regular experssions
         
-        line = crline.strip()
+        line = crline.strip().lower()
         #print('this is the line:' + str(line))
-        line = line.replace(' = ','=')
+        line = line.replace(' = ','=').replace(', ' , ',')
         #print('this is the line:' + str(line))
 
         cdata = line.split('=')
