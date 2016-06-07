@@ -30,6 +30,9 @@ import ptvsd
 from setup import setup
 from startcoinservers import startcoinservers
 from getexenames import getexenames
+from getsynctime import getsynctime
+from coins.Coincontroller import Coincontroller
+
 
 from sys import exit, argv
 
@@ -41,9 +44,8 @@ from os import path, getenv, mkdir, system
 from re import sub, search
 from ast import literal_eval
 from nt import remove
-from time import time
-import datetime
-import calendar
+
+from coins.Coincontroller import Coincontroller
 
 
 
@@ -123,30 +125,10 @@ def commandquit():
     remove(appdatfile)        
     exit(msgexitu)
 
-def commandgetsynctime(coin, conn):
-    
-    blockcount = conn[coin].getblockcount()
-    blockhash = conn[coin].getblockhash(blockcount)
-    block = conn[coin].getblock(blockhash)
-    
-    crnttime = time()
-    if not isinstance( block['time'], int ):
-        date_text = block['time'].replace(' UTC', '')
-        date = datetime.datetime.strptime(date_text, "%Y-%m-%d %H:%M:%S")
-        blocktime = calendar.timegm(date.utctimetuple())
-    else:
-        blocktime = block['time']
-    synctime = crnttime - blocktime
-    m, s = divmod(synctime, 60)
-    h, m = divmod(m, 60)
-    return synctime, print("%d:%02d:%02d" % (h, m, s))
+def commandgetsynctime(getsynctime):
+    pass
 
-    
-    #return the last time in seconds that the wallet has synced
-    
-
-
-
+ 
 #coinlist = getlist((envars['coinlist'],))
 #coinlist = getlist((envars['coinlist'] + ('tek',)))
 #coinlist = getlist(map(set,envars['coinlist']))
@@ -159,7 +141,9 @@ def commandgetsynctime(coin, conn):
 def commandstart():
     print(coinlist[0])
     setup(appdirpath, appdatfile, appdatadirpath, appdata, snpy, coinlist, exenames)
-    conns = startcoinservers(coinlist, exenames, envars, startupstatcheckfreqscnds, appdata, rpcports)
+    coincontroller = Coincontroller(coinlist)
+    startcoinservers(coincontroller, exenames, envars, startupstatcheckfreqscnds, appdata, rpcports)
+    conns = coincontroller.getconns()
     paramslist['getsynctime'] = conns
     
         

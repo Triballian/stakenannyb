@@ -14,6 +14,8 @@ from managestake import timelapse
 from bitcoinrpc.config import read_config_file
 from User import User
 from serializer import serialize, deserialize
+from getsynctime import getsynctime
+import gevent
 
 
 
@@ -37,22 +39,18 @@ def getpasswd():
                 print("Passwords did not match. Please try again.")
         return p1
 
-def starteachserver(coinlist, exenames, envars, password, appdata, startupstatcheckfreqscnds, rpcports):
+def starteachserver(coincontroller, exenames, envars, password, appdata, startupstatcheckfreqscnds, rpcports):
     coinsp ={}
     cfgs={}
-    conns={}
+    coinlist = coincontroller.get_coinlist()
+    
     for coin in coinlist:
         print(coin)
         seconds = 30
         startcmdstr=str(envars[coin][0] + '\\' + exenames[coin] + ' -server -listen -rpcallowip=127.0.0.1 -rpcuser=stakenanny -rpcpassword=' + password)
-        #startcmdstr=str(envars[coin][0] + '\\' + exenames[coin] + ' -daemon -listen -rpcallowip=127.0.0.1 -rpcuser=stakenanny -rpcpassword=' + password)
-        #serveroutput=call( startcmdstr )
+        
         coinsp[coin]=Popen( startcmdstr )
-        #try:
-        #    serveroutput=str(check_output( startcmdstr, timeout=seconds ),'utf-8')
-        #except TimeoutExpired:
-        #    pass
-        #return cfg for each coin
+       
         cfgfname=appdata + '\\' + coin + '\\' + coin + r'.conf'
         if path.exists(cfgfname):
             cfg=read_config_file(cfgfname)
@@ -63,35 +61,49 @@ def starteachserver(coinlist, exenames, envars, password, appdata, startupstatch
                 rpcport = rpcports[coin]
         else:
             rpcport = rpcports[coin]
-            
-        #    if 'rpcport' in cfg:
-        #        conns[coin] = AuthServiceProxy("http://%s:%s@127.0.0.1:%s"%('stakenanny', password, cfg['rpcport']))
-        #    else:
-        #        conns[coin] = AuthServiceProxy("http://%s:%s@127.0.0.1:%s"%('stakenanny', password, rpcports[coin]))
-        #else:
-        #    conns[coin] = AuthServiceProxy("http://%s:%s@127.0.0.1:%s"%('stakenanny', password, rpcports[coin]))
-        
         
         wallet_finished_loading = False
         
         while not wallet_finished_loading:
-            #conns[coin] = AuthServiceProxy("http://%s:%s@127.0.0.1:%s"%('stakenanny', password, rpcport))
-            conns[coin] = AuthServiceProxy("http://%s:%s@127.0.0.1:%s"%('stakenanny', password, rpcport))            
-            status = wait_for_wallet_to_finish_loading(conns[coin], startupstatcheckfreqscnds)
+            coincontroller.set_conns(coin, AuthServiceProxy("http://%s:%s@127.0.0.1:%s"%('stakenanny', password, rpcport)))            
+            status = wait_for_wallet_to_finish_loading(coincontroller.get_conn(coin), startupstatcheckfreqscnds)
             if status != 'Request-sent':
                 wallet_finished_loading = True
-            
-        try:
-            conns[coin].walletpassphrase(password, 99999999, True)
-        except Exception as e:
-            timedouterror=search(r'^timed out', str(e))
-            if timedouterror:
-                pass
+        
+        coincontroller.coinloaded(coin)
+        gevent.sleep(0)
+    
+    #coincontroller.set_conns(conns)
+    coincontroller.set_cfgs(cfgs)     
+    #return cfgs, conns
+
+def enablestake(coincontroller, password):
+        allwalletsstakeenabled=False
+        while not allwalletsstakeenabled:
+            coinsloading = coincontroller.get_coinsloading()
+            coinstobestakeeanbled = coincontroller.get_coinstobestakeeanbled()
+            if coinsloading or coinstobestakeeanbled:
+                
+                for index in range(len(coinstobestakeeanbled)):
+                    conns = coincontroller.get_conns()
+                    time, catchprintstatement=getsynctime(coinstobestakeeanbled[index], conns)
+ 
+                    if time > 0 and time < 240:
+                        coincontroller.cointakeenabled(index)
+                        try:
+                            conns[coinstobestakeeanbled[index]].walletpassphrase(password, 99999999, True)
+                            break
+                        except Exception as e:
+                            timedouterror=search(r'^timed out', str(e))
+                            if timedouterror:
+                                break 
+                                #pass
+                            else:
+                                print('exit 1')
+                                exit(e)
+                gevent.sleep(0)
             else:
-                print('exit 1')
-                exit(e)
-    #conns[coin].wallet        
-    return cfgs, conns
+                allwalletsstakeenabled = True
         
   
 def wait_for_wallet_to_finish_loading(rpc_connection, startupstatcheckfreqscnds):
@@ -122,7 +134,7 @@ def wait_for_wallet_to_finish_loading(rpc_connection, startupstatcheckfreqscnds)
     
     
    
-def startcoinservers(coinlist, exenames , envars, startupstatcheckfreqscnds, appdata, rpcports):
+def startcoinservers(coincontroller, exenames , envars, startupstatcheckfreqscnds, appdata, rpcports):
     userfile = appdata + '\\' + 'stakenanny' + '\\' + 'user.sav'
     if path.exists(userfile):
         user = deserialize(userfile )
@@ -132,9 +144,13 @@ def startcoinservers(coinlist, exenames , envars, startupstatcheckfreqscnds, app
         serialize(user, userfile)
     
     
-    cfgs, conns=starteachserver(coinlist, exenames, envars, user.get_pwd(), appdata, startupstatcheckfreqscnds, rpcports)
+    #starteachserver(coincontroller, exenames, envars, user.get_pwd(), appdata, startupstatcheckfreqscnds, rpcports)
+    gevent.joinall([
+    gevent.spawn(starteachserver(coincontroller, exenames, envars, user.get_pwd(), appdata, startupstatcheckfreqscnds, rpcports)),
+    gevent.spawn(enablestake(coincontroller, user.get_pwd())),
+    ])
 
-    return conns
+    
     #continuekey=input('press a key to continue:')
     #-server -daemon
     #-rpcuser=stakenanny

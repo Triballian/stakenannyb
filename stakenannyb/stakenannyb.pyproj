@@ -33,10 +33,22 @@
     <Compile Include="candiapps\utils.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="coins\Coin.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="coins\Coincontroller.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="coins\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="getexenames.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="getfilecontents.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="getsynctime.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="isappsessioncurrentifnodo.py">
@@ -76,6 +88,7 @@
     <Folder Include="bitcoinrpc\" />
     <Folder Include="candiapps\" />
     <Folder Include="managestake\" />
+    <Folder Include="coins\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="managestake\timelapse.pyc" />
