@@ -46,6 +46,7 @@ try:
     import urllib.parse as urlparse
 except ImportError:
     import urlparse
+from sys import exit
 
 USER_AGENT = "AuthServiceProxy/0.1"
 
@@ -176,7 +177,16 @@ class AuthServiceProxy(object):
         return results
 
     def _get_response(self):
-        http_response = self.__conn.getresponse()
+        try:
+            http_response = self.__conn.getresponse()
+        except Exception as e:
+            timedouterror=search(r'^timed out', str(e))
+        if timedouterror:
+            pass
+        else:
+            print('exit 1')
+            exit(e)
+              
         if http_response is None:
             raise JSONRPCException({
                 'code': -342, 'message': 'missing HTTP response from server'})
