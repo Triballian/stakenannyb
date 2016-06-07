@@ -16,6 +16,7 @@ from User import User
 from serializer import serialize, deserialize
 from getsynctime import getsynctime
 import gevent
+from copy import deepcopy
 
 
 
@@ -42,7 +43,7 @@ def getpasswd():
 def starteachserver(coincontroller, exenames, envars, password, appdata, startupstatcheckfreqscnds, rpcports):
     coinsp ={}
     cfgs={}
-    coinlist = coincontroller.get_coinlist()
+    coinlist = deepcopy(coincontroller.get_coinlist())
     
     for coin in coinlist:
         print(coin)
@@ -83,25 +84,29 @@ def enablestake(coincontroller, password):
             coinsloading = coincontroller.get_coinsloading()
             coinstobestakeeanbled = coincontroller.get_coinstobestakeeanbled()
             if coinsloading or coinstobestakeeanbled:
-                
-                for index in range(len(coinstobestakeeanbled)):
-                    conns = coincontroller.get_conns()
-                    time, catchprintstatement=getsynctime(coinstobestakeeanbled[index], conns)
+                if coinstobestakeeanbled:
+                    for index in range(len(coinstobestakeeanbled)):
+                        conns = coincontroller.get_conns()
+                        time, catchprintstatement=getsynctime(coinstobestakeeanbled[index], conns)
  
-                    if time > 0 and time < 240:
-                        coincontroller.cointakeenabled(index)
-                        try:
-                            conns[coinstobestakeeanbled[index]].walletpassphrase(password, 99999999, True)
-                            break
-                        except Exception as e:
-                            timedouterror=search(r'^timed out', str(e))
-                            if timedouterror:
-                                break 
-                                #pass
-                            else:
-                                print('exit 1')
-                                exit(e)
-                gevent.sleep(0)
+                        if time > 0 and time < 420:
+                        
+                            try:
+                                conns[coinstobestakeeanbled[index]].walletpassphrase(password, 99999999, True)
+                                coincontroller.coinstakeenabled(index)
+                                break
+                            except Exception as e:
+                                timedouterror=search(r'^timed out', str(e))
+                                if timedouterror:
+                                    coincontroller.coinstakeenabled(index)
+                                    break 
+                                    #pass
+                                else:
+                                    print('exit 1')
+                                    exit(e)
+                    gevent.sleep(0)
+                else:
+                    gevent.sleep(0)
             else:
                 allwalletsstakeenabled = True
         

@@ -143,7 +143,7 @@ def commandstart():
     setup(appdirpath, appdatfile, appdatadirpath, appdata, snpy, coinlist, exenames)
     coincontroller = Coincontroller(coinlist)
     startcoinservers(coincontroller, exenames, envars, startupstatcheckfreqscnds, appdata, rpcports)
-    conns = coincontroller.getconns()
+    conns = coincontroller.get_conns()
     paramslist['getsynctime'] = conns
     
         

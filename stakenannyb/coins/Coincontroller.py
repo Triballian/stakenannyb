@@ -25,7 +25,7 @@ class Coincontroller(object):
         else:
             return None
             
-    def cointakeenabled(self, index):
+    def coinstakeenabled(self, index):
         self.coinstobestakeeanbled.pop(index)
 
     #def get_loadedwalletstobestakeenabled(self, coin):
