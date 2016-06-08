@@ -40,7 +40,7 @@ def getpasswd():
                 print("Passwords did not match. Please try again.")
         return p1
 
-def starteachserver(coincontroller, exenames, envars, password, appdata, startupstatcheckfreqscnds, rpcports):
+def starteachserver(coincontroller, exenames, envars, password, appdata, startupstatcheckfreqscnds):
     coinsp ={}
     cfgs={}
     coinlist = deepcopy(coincontroller.get_coinlist())
@@ -62,9 +62,9 @@ def starteachserver(coincontroller, exenames, envars, password, appdata, startup
             if 'rpcport' in cfg:
                 rpcport = cfg['rpcport']
             else:
-                rpcport = rpcports[coin]
+                rpcport = coincontroller.get_rpcport(coin)
         else:
-            rpcport = rpcports[coin]
+            rpcport = coincontroller.get_rpcport(coin)
         
         wallet_finished_loading = False
         
@@ -93,7 +93,14 @@ def enablestake(coincontroller, password):
                 if coinstobestakeenabled:
                     for index in range(len(coinstobestakeenabled)):
                         conns = coincontroller.get_conns()
-                        time, catchprintstatement=getsynctime(coinstobestakeenabled[index], conns)
+                        coin = coinstobestakeenabled[index]
+                        time, catchprintstatement=getsynctime(coin, conns)
+                        while time == 'connection lost':
+                            print( coin + ' connection lost, reconnecting...')
+                            rpcport = coincontroller.get_rpcort(coin)
+                            coincontroller.set_conns(coin, AuthServiceProxy("http://%s:%s@127.0.0.1:%s"%('stakenanny', password, rpcport)))
+                            time, catchprintstatement=getsynctime(coin, conns)
+                            
  
                         if time > 0 and time < 420:
                         
@@ -147,7 +154,7 @@ def wait_for_wallet_to_finish_loading(rpc_connection, startupstatcheckfreqscnds)
     
     
    
-def startcoinservers(coincontroller, exenames , envars, startupstatcheckfreqscnds, appdata, rpcports):
+def startcoinservers(coincontroller, exenames , envars, startupstatcheckfreqscnds, appdata):
     userfile = appdata + '\\' + 'stakenanny' + '\\' + 'user.sav'
     if path.exists(userfile):
         user = deserialize(userfile )
@@ -159,7 +166,7 @@ def startcoinservers(coincontroller, exenames , envars, startupstatcheckfreqscnd
     
     #starteachserver(coincontroller, exenames, envars, user.get_pwd(), appdata, startupstatcheckfreqscnds, rpcports)
     gevent.joinall([
-    gevent.spawn(starteachserver(coincontroller, exenames, envars, user.get_pwd(), appdata, startupstatcheckfreqscnds, rpcports)),
+    gevent.spawn(starteachserver(coincontroller, exenames, envars, user.get_pwd(), appdata, startupstatcheckfreqscnds)),
     gevent.spawn(enablestake(coincontroller, user.get_pwd())),
     ])
 

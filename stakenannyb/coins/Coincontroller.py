@@ -2,10 +2,12 @@ class Coincontroller(object):
     """description of class"""
     
     
-    def __init__(self, coinlist):
+    def __init__(self, coinlist, rpcports):
         self.coinlist = coinlist
+        self.rpcports = rpcports
         self.coinsloading = coinlist
         self.loadedwalletstobestakeenabled = coinlist
+        self.cfgs = {}
         self.conns = {} 
         self.coinstobestakeenabled = []
      
@@ -51,6 +53,17 @@ class Coincontroller(object):
 
     def get_coinlist(self):
         return self.coinlist
+
+    def get_rpcport(self, coin):
+        if coin in self.cfgs:
+            if 'rpcport' in self.cfgs[coin]:
+                return self.cfgs[coin]['rpcport']
+            else:
+                return self.rpcports[coin]
+        else:
+            return self.rpcports[coin]
+            
+        
 
         
     

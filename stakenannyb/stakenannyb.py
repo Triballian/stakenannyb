@@ -71,7 +71,13 @@ startupstatcheckfreqscnds=1
 
 
 coinlist = []
-for coin in set(envars['coinlist']):
+try:
+    confcoinlist = envars['coinlist']
+except KeyError:
+    exit('Misssing "coinlist" entry in stakeynanny.conf!')
+    
+    
+for coin in set(confcoinlist):
     coinlist.append(str(coin).lower())
 exenames=getexenames(coinlist, envars)
 
@@ -141,8 +147,8 @@ def commandgetsynctime(getsynctime):
 def commandstart():
     print(coinlist[0])
     setup(appdirpath, appdatfile, appdatadirpath, appdata, snpy, coinlist, exenames)
-    coincontroller = Coincontroller(coinlist)
-    startcoinservers(coincontroller, exenames, envars, startupstatcheckfreqscnds, appdata, rpcports)
+    coincontroller = Coincontroller(coinlist, rpcports)
+    startcoinservers(coincontroller, exenames, envars, startupstatcheckfreqscnds, appdata)
     conns = coincontroller.get_conns()
     paramslist['getsynctime'] = conns
     

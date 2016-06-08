@@ -1,9 +1,17 @@
 from time import time
 import datetime
 import calendar
+from re import search
 
 def getsynctime(coin, conn):
-    blockcount = conn[coin].getblockcount()
+    print(coin)
+    try:
+        blockcount = conn[coin].getblockcount()
+    except Exception as e:
+        requestsent=search(r'^Request-sent', str(e))
+        #requst-sent is basically a broken connection, this needs to be reestablished.
+        if requestsent:
+            return 'connection lost'    
     blockhash = conn[coin].getblockhash(blockcount)
     block = conn[coin].getblock(blockhash)
     
