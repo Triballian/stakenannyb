@@ -50,7 +50,9 @@ from coins.Coincontroller import Coincontroller
 
 
 coinssupported =('turbostake',)
-rpcports = {'turbostake': '8454', 'truckcoin': '18776', 'paycon': '9456', 'tekcoin': '18514', 'bottlecaps': '8385', 'stronghands': '6902', 'hyperstake': '18777', '1337': '13372', 'sprouts': '9902', 'pulse': '29996'}
+rpcports = {'turbostake': '8454', 'truckcoin': '18776', 'paycon': '9456', 'tekcoin': '18514', 'bottlecaps': '8385', 
+            'stronghands': '6902', 'hyperstake': '18777', '1337': '13372', 'sprouts': '9902', 'pulse': '29996', 'spots': '9902', 'digicube': '9902'
+            }
 listcommands=('help', 'quit', 'coinssupported', 'coinlist', 'getsynctime')
 paramslist={} 
 envars = getconf('stakenanny')

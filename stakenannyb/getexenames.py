@@ -13,8 +13,8 @@ def getexenames(coinlist, envars):
         print('coin = ' + coin + '\nenvars[coin][0] = ' + str(envars[coin][0]))
               
         if path.exists(envars[coin][0]):
-            fildedir=envars[coin][0]
-            cmdstr=r'dir /b "' + fildedir + r'" '
+            filedir=envars[coin][0]
+            cmdstr=r'dir /b "' + filedir + r'" '
             
             exefilesndir=str(check_output(cmdstr, shell=True), 'utf-8')
             regexstr = r'^'+ coin + r'.*\.exe'

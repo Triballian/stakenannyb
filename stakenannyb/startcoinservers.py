@@ -95,12 +95,12 @@ def enablestake(coincontroller, password):
                         coin = coinstobestakeenabled[index]
                         conn = coincontroller.get_conn(coin)
                         
-                        time, catchprintstatement=getsynctime(conn)
+                        time = getsynctime(conn)
                         while time == 'connection lost':
                             print( coin + ' connection lost, reconnecting...')
-                            rpcport = coincontroller.get_rpcort(coin)
+                            rpcport = coincontroller.get_rpcport(coin)
                             coincontroller.set_conns(coin, AuthServiceProxy("http://%s:%s@127.0.0.1:%s"%('stakenanny', password, rpcport)))
-                            time, catchprintstatement=getsynctime(coin, conns)
+                            time = getsynctime(conn)
                             
  
                         if time > 0 and time < 420:
