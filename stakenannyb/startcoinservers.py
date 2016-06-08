@@ -48,7 +48,10 @@ def starteachserver(coincontroller, exenames, envars, password, appdata, startup
     for coin in coinlist:
         print(coin)
         seconds = 30
-        startcmdstr=str(envars[coin][0] + '\\' + exenames[coin] + ' -server -listen -rpcallowip=127.0.0.1 -rpcuser=stakenanny -rpcpassword=' + password)
+        if coin == 'hyperstake':
+            startcmdstr=str(envars[coin][0] + '\\' + exenames[coin] + ' -server -listen=0 -rpcallowip=127.0.0.1 -rpcuser=stakenanny -rpcpassword=' + password)
+        else:
+            startcmdstr=str(envars[coin][0] + '\\' + exenames[coin] + ' -server -listen -rpcallowip=127.0.0.1 -rpcuser=stakenanny -rpcpassword=' + password)
         
         coinsp[coin]=Popen( startcmdstr )
        
@@ -70,6 +73,7 @@ def starteachserver(coincontroller, exenames, envars, password, appdata, startup
             status = wait_for_wallet_to_finish_loading(coincontroller.get_conn(coin), startupstatcheckfreqscnds)
             if status != 'Request-sent':
                 wallet_finished_loading = True
+            sleep(startupstatcheckfreqscnds)
         
         coincontroller.coinloaded(coin)
         gevent.sleep(0)
@@ -122,8 +126,10 @@ def wait_for_wallet_to_finish_loading(rpc_connection, startupstatcheckfreqscnds)
             walletisstillloading=None
         except Exception as e:
             walletisstillloading=search(r'^\[WinError 10061\]', str(e))
+            timedout=search(r'^timed out', str(e))
             requestsent=search(r'^Request-sent', str(e))
-            if walletisstillloading:
+            
+            if walletisstillloading or timedout:
                 sleep(startupstatcheckfreqscnds)
             elif requestsent:
                 status=requestsent.group(0)
