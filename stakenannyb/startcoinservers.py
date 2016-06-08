@@ -92,9 +92,10 @@ def enablestake(coincontroller, password):
             if coinsloading or coinstobestakeenabled:
                 if coinstobestakeenabled:
                     for index in range(len(coinstobestakeenabled)):
-                        conns = coincontroller.get_conns()
                         coin = coinstobestakeenabled[index]
-                        time, catchprintstatement=getsynctime(coin, conns)
+                        conn = coincontroller.get_conn(coin)
+                        
+                        time, catchprintstatement=getsynctime(conn)
                         while time == 'connection lost':
                             print( coin + ' connection lost, reconnecting...')
                             rpcport = coincontroller.get_rpcort(coin)
@@ -105,7 +106,7 @@ def enablestake(coincontroller, password):
                         if time > 0 and time < 420:
                         
                             try:
-                                conns[coinstobestakeenabled[index]].walletpassphrase(password, 99999999, True)
+                                conn.walletpassphrase(password, 99999999, True)
                                 coincontroller.coinstakeenabled(index)
                                 break
                             except Exception as e:

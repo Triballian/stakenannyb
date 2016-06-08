@@ -42,8 +42,8 @@ class Coincontroller(object):
     def get_conn(self, coin):
         return self.conns[coin]
 
-    def get_conns(self):
-        return self.conns
+    #def get_conns(self):
+    #    return self.conns
 
     def set_cfgs(self, cfgs):
         self.cfgs = cfgs

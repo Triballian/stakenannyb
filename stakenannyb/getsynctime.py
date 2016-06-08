@@ -1,24 +1,24 @@
 from time import time
-import datetime
+from datetime import datetime
 import calendar
 from re import search
 
-def getsynctime(coin, conn):
-    print(coin)
+def getsynctime(conn):
+    
     try:
-        blockcount = conn[coin].getblockcount()
+        blockcount = conn.getblockcount()
     except Exception as e:
         requestsent=search(r'^Request-sent', str(e))
         #requst-sent is basically a broken connection, this needs to be reestablished.
         if requestsent:
             return 'connection lost'    
-    blockhash = conn[coin].getblockhash(blockcount)
-    block = conn[coin].getblock(blockhash)
+    blockhash = conn.getblockhash(blockcount)
+    block = conn.getblock(blockhash)
     
     crnttime = time()
     if not isinstance( block['time'], int ):
         date_text = block['time'].replace(' UTC', '')
-        date = datetime.datetime.strptime(date_text, "%Y-%m-%d %H:%M:%S")
+        date = datetime.strptime(date_text, "%Y-%m-%d %H:%M:%S")
         blocktime = calendar.timegm(date.utctimetuple())
     else:
         blocktime = block['time']

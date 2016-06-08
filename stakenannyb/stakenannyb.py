@@ -149,8 +149,8 @@ def commandstart():
     setup(appdirpath, appdatfile, appdatadirpath, appdata, snpy, coinlist, exenames)
     coincontroller = Coincontroller(coinlist, rpcports)
     startcoinservers(coincontroller, exenames, envars, startupstatcheckfreqscnds, appdata)
-    conns = coincontroller.get_conns()
-    paramslist['getsynctime'] = conns
+    conn = coincontroller
+    paramslist['getsynctime'] = conn
     
         
     
@@ -162,7 +162,7 @@ def commandstart():
             if uinput[0].lower() in listcommands:
                 if len(uinput) > 1:
                     if uinput[0].lower() in paramslist:
-                        globals()[str('command' + uinput[0].lower())](uinput[1].lower(), paramslist[uinput[0]])
+                        globals()[str('command' + uinput[0].lower())](paramslist[uinput[0]](uinput[1].lower()))
                         #globals()[str('command' + uinput[0].lower())](uinput[1].lower())
                     else:
                         print('\"' + uinput[1] + '\"' + ', is not a valid parameter. Type help for a list of available commands and parameters wrapped with bracket example: getsynctime [coin] is typed:/ngetsynctime turbostake')
