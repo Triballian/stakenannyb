@@ -7,11 +7,11 @@ class Coincontroller(object):
         self.coinsloading = coinlist
         self.loadedwalletstobestakeenabled = coinlist
         self.conns = {} 
-        self.coinstobestakeeanbled = []
+        self.coinstobestakeenabled = []
      
     def coinloaded(self, coin):
         self.coinsloading.remove(coin)
-        self.coinstobestakeeanbled.append(coin)
+        self.coinstobestakeenabled.append(coin)
     
     def get_coinsloading(self):
         if len(self.coinsloading) > 0:
@@ -19,14 +19,14 @@ class Coincontroller(object):
         else:
             return None
 
-    def get_coinstobestakeeanbled(self):
-        if len(self.coinstobestakeeanbled) > 0:
-            return self.coinstobestakeeanbled
+    def get_coinstobestakeenabled(self):
+        if len(self.coinstobestakeenabled) > 0:
+            return self.coinstobestakeenabled
         else:
             return None
             
     def coinstakeenabled(self, index):
-        self.coinstobestakeeanbled.pop(index)
+        self.coinstobestakeenabled.pop(index)
 
     #def get_loadedwalletstobestakeenabled(self, coin):
     #    if self.loadedwalletstobestakeenabled > 0:

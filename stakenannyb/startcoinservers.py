@@ -86,17 +86,17 @@ def enablestake(coincontroller, password):
         allwalletsstakeenabled=False
         while not allwalletsstakeenabled:
             coinsloading = coincontroller.get_coinsloading()
-            coinstobestakeeanbled = coincontroller.get_coinstobestakeeanbled()
-            if coinsloading or coinstobestakeeanbled:
-                if coinstobestakeeanbled:
-                    for index in range(len(coinstobestakeeanbled)):
+            coinstobestakeenabled = coincontroller.get_coinstobestakeenabled()
+            if coinsloading or coinstobestakeenabled:
+                if coinstobestakeenabled:
+                    for index in range(len(coinstobestakeenabled)):
                         conns = coincontroller.get_conns()
-                        time, catchprintstatement=getsynctime(coinstobestakeeanbled[index], conns)
+                        time, catchprintstatement=getsynctime(coinstobestakeenabled[index], conns)
  
                         if time > 0 and time < 420:
                         
                             try:
-                                conns[coinstobestakeeanbled[index]].walletpassphrase(password, 99999999, True)
+                                conns[coinstobestakeenabled[index]].walletpassphrase(password, 99999999, True)
                                 coincontroller.coinstakeenabled(index)
                                 break
                             except Exception as e:
