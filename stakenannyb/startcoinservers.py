@@ -73,10 +73,12 @@ def starteachserver(coincontroller, exenames, envars, password, appdata, startup
             status = wait_for_wallet_to_finish_loading(coincontroller.get_conn(coin), startupstatcheckfreqscnds)
             if status != 'Request-sent':
                 wallet_finished_loading = True
-            sleep(startupstatcheckfreqscnds)
+            if coincontroller.get_coinstobestakeenabled():
+                gevent.sleep(0)
+            else: 
+                sleep(startupstatcheckfreqscnds)
         
         coincontroller.coinloaded(coin)
-        gevent.sleep(0)
     
     #coincontroller.set_conns(conns)
     coincontroller.set_cfgs(cfgs)     
