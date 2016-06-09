@@ -12,22 +12,25 @@ def getsynctime(conn):
         #requst-sent is basically a broken connection, this needs to be reestablished.
         if requestsent or not blockcount:
             return 'connection lost'
-        
-    try:
-        blockhash = conn.getblockhash(blockcount)
-    except Exception as e:
-        requestsent=search(r'^Request-sent', str(e))
-        #requst-sent is basically a broken connection, this needs to be reestablished.
-        if requestsent:
-            return 'connection lost'    
+  
+
+    blockhash = conn.getblockhash(blockcount)      
+    #try:
+    #    blockhash = conn.getblockhash(blockcount)
+    #except Exception as e:
+    #    requestsent=search(r'^Request-sent', str(e))
+    #    #requst-sent is basically a broken connection, this needs to be reestablished.
+    #    if requestsent:
+    #        return 'connection lost'    
     
-    try:
-        block = conn.getblock(blockhash)
-    except Exception as e:
-        requestsent=search(r'^Request-sent', str(e))
-        #requst-sent is basically a broken connection, this needs to be reestablished.
-        if requestsent:
-            return 'connection lost'
+    block = conn.getblock(blockhash)
+    #try:
+    #    block = conn.getblock(blockhash)
+    #except Exception as e:
+    #    requestsent=search(r'^Request-sent', str(e))
+    #    #requst-sent is basically a broken connection, this needs to be reestablished.
+    #    if requestsent:
+    #        return 'connection lost'
     
     
     crnttime = time()

@@ -96,10 +96,12 @@ def enablestake(coincontroller, password):
                         conn = coincontroller.get_conn(coin)
                         
                         time = getsynctime(conn)
+                        print (coin + ' ' + str(time))
                         while time == 'connection lost':
                             print( coin + ' connection lost, reconnecting...')
                             rpcport = coincontroller.get_rpcport(coin)
                             coincontroller.set_conns(coin, AuthServiceProxy("http://%s:%s@127.0.0.1:%s"%('stakenanny', password, rpcport)))
+                            conn = coincontroller.get_conn(coin)
                             time = getsynctime(conn)
                             
  
@@ -115,6 +117,7 @@ def enablestake(coincontroller, password):
                                     coincontroller.coinstakeenabled(index)
                                     break 
                                     #pass
+                                
                                 else:
                                     print('exit 1')
                                     exit(e)
